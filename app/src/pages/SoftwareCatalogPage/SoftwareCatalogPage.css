@@ -1,0 +1,48 @@
+.software-card-img {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.dark-blue-btn {
+    background-color: #202e3b;
+    color: #fff;
+}
+
+.dark-blue-btn:hover {
+    background-color: #fff;
+    border-color: #202e3b;
+    color: #202e3b;
+}
+
+.not-found-alert {
+    width: 100%;
+}
+
+.dark-blue-border {
+    border-color: #202e3b;
+    color: #202e3b;
+}
+
+.dark-blue-border:hover {
+    border-color: #202e3b;
+    background-color: #202e3b;
+    color: #ffffff;
+}
+
+
+@media (min-width: 1200px) {
+}
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 576px) {
+}

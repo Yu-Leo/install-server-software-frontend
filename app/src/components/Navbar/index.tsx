@@ -10,7 +10,7 @@ export const Navbar: FC = () => {
         <>
             <NavbarComp expand="lg"
                         data-bs-theme="dark"
-                        className="dark-blue-back"
+                        className="dark-blue-back navbar-height"
             >
                 <Container>
                     <NavbarComp.Brand>
@@ -24,7 +24,7 @@ export const Navbar: FC = () => {
                     />
                     <NavbarComp.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto gap-4 gap-sm-3">
-                            <NavLink to="/" className="text-white text-decoration-none">
+                            <NavLink to="/software_catalog" className="text-white text-decoration-none">
                                 Каталог
                             </NavLink>
                         </Nav>

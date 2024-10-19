@@ -2,6 +2,7 @@ import {RouteObject, useRoutes} from "react-router-dom";
 import {IGlobalProps} from "./App.typing";
 import {PrivatePages} from "./components/PricatePages";
 import {MainPage} from "./pages/MainPage";
+import {SoftwareCatalogPage} from "./pages/SoftwareCatalogPage";
 
 export const AppRoutes = (props: IGlobalProps) => {
     const routes: RouteObject[] = [
@@ -12,6 +13,10 @@ export const AppRoutes = (props: IGlobalProps) => {
                 {
                     path: "",
                     element: <MainPage {...props} />,
+                },
+                {
+                    path: "software_catalog",
+                    element: <SoftwareCatalogPage {...props} />,
                 },
                 // {
                 //     path: "planet/:id",
