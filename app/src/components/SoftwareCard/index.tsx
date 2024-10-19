@@ -5,7 +5,7 @@ export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProp
     return (
         <div className="card h-100">
             <img
-                src={software.logo_file_path}
+                src={software.logoFilePath}
                 className="card-img-top software-card-img"
                 alt={software.title}
             />
@@ -19,6 +19,7 @@ export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProp
                 </li>
             </ul>
             <div className="card-body">
+                {/* TODO: ссылки через роутинг*/}
                 <a href={`/software/${software.id}`} className="btn dark-blue-btn">
                     Узнать подробнее
                 </a>

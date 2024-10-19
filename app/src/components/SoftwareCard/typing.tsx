@@ -3,5 +3,5 @@ export interface ISoftwareCardProps {
     title: string;
     summary: string;
     price: number;
-    logo_file_path: string;
+    logoFilePath: string;
 }
