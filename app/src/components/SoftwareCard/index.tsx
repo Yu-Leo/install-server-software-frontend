@@ -1,11 +1,12 @@
 import {FC} from "react";
 import {ISoftwareCardProps} from "./typing.tsx";
+import unknownImage from "/images/unknown.jpg"
 
 export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProps) => {
     return (
         <div className="card h-100">
             <img
-                src={software.logoFilePath}
+                src={software.logoFilePath ? (software.logoFilePath) : (unknownImage)}
                 className="card-img-top software-card-img"
                 alt={software.title}
             />

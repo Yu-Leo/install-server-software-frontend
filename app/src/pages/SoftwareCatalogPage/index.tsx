@@ -37,7 +37,7 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
                     <div>
                         <a href={`/request/1`} className="btn dark-blue-border">
                             3
-                            <img src="images/cart.png" width="25" alt="cart"/>
+                            <img src="images/cart.png" width="25" alt="cart"/> {/* TODO: исправить путь до иконфи корзины */}
                         </a>
                     </div>
                 </form>
