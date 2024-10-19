@@ -4,7 +4,7 @@ import {ISoftwareCatalogPageProps} from "./typing";
 
 import {Navbar} from "../../components/Navbar";
 import {Container} from "react-bootstrap";
-import {SoftwareCard} from "../../components/SoftwareCart";
+import {SoftwareCard} from "../../components/SoftwareCard";
 
 const softwareData: {
     id: number;
@@ -33,7 +33,7 @@ const softwareData: {
         price: 150,
         time: 10,
         size: '300 Мб',
-        summary: 'Программная платформа, основанная на движке V8, превращающая JavaScript в язык общего назначения.',
+        summary: 'Программная платформа, основанная на движке V8, которая превращает JavaScript из узкоспециализированного языка в язык общего назначения.',
         description: 'Node.js применяется преимущественно на сервере, выполняя роль веб-сервера. Возможна разработка десктопных оконных приложений и программирование микроконтроллеров.',
     },
     {
@@ -53,7 +53,7 @@ const softwareData: {
         price: 300,
         time: 43,
         size: '300 Мб',
-        summary: 'Язык программирования, который применяется в веб-сфере.',
+        summary: 'Язык программирования, который в первую очередь применяют в веб-сфере',
         description: 'С его помощью сайты становятся интерактивными: добавляются всплывающие окна, анимация и формы для отправки информации.',
     },
     {
@@ -92,7 +92,7 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
                     </div>
                     <div>
                         <a href={`/request/1`} className="btn dark-blue-border">
-                            12
+                            3
                             <img src="images/cart.png" width="25" alt="cart"/>
                         </a>
                     </div>
@@ -102,7 +102,7 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
                     row-cols-lg-4 g-4">
                     {softwareData.map(software => (
                         <div className="col" key={software.id}>
-                            <SoftwareCard software={software}/>
+                            <SoftwareCard {...software}/>
                         </div>
                     ))}
                 </div>

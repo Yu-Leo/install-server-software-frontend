@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {ISoftwareCardProps} from "./typing.tsx";
 
-export const SoftwareCard: FC<ISoftwareCardProps> = ({software}) => {
+export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProps) => {
     return (
         <div className="card h-100">
             <img
