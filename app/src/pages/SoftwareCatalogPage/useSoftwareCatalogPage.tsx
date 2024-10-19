@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import {ISoftware} from "../../core/api/software/typing.tsx";
 
 // import { useLocation, useNavigate } from "react-router-dom";
 
 // import { IPlanet } from "../../core/api/planets/typing";
-// import { getPlanets } from "../../core/api/planets";
+import {getSoftwareList} from "../../core/api/software";
 // import { ChangeEvent } from "../../App.typing";
-import { softwareList as SOFTWARE_LIST_MOCK } from "../../core/mock/softwareList.ts";
+
+import {softwareList as SOFTWARE_LIST_MOCK} from "../../core/mock/softwareList.ts";
 
 export const useSoftwareCatalogPage = () => {
     const [softwareList, setSoftwareList] = useState<ISoftware[]>([]);
@@ -38,40 +39,21 @@ export const useSoftwareCatalogPage = () => {
     //         .catch(() => setSoftwareList(PLANETS.planets)); // мок
     // };
 
-    // function scrollToPlanet() {
-    //     if (location.state?.planetId) {
-    //         const planetElement = document.getElementById(location.state?.planetId);
-    //         const planetsElement = document.getElementById("planets");
-    //
-    //         if (planetElement) {
-    //             planetElement.scrollIntoView({ behavior: "smooth" });
-    //             navigate(".", { replace: true }); // удаляем state
-    //         } else {
-    //             planetsElement?.scrollIntoView({ behavior: "smooth" });
-    //         }
-    //     }
-    // }
     //
     // const handleSearchNameChange = (e: ChangeEvent) => {
     //     setSearchName(e.target.value);
     // };
 
-    useEffect(() => {
-        setSoftwareList(SOFTWARE_LIST_MOCK)
-        // getSoftwareList()
-        //     .then((data) => {
-        //         setSoftwareList(data.planets);
-        //         console.log(data.planets);
-        //     })
-        //     .catch(() => setSoftwareList(PLANETS.planets)); // мок
-    }, []);
 
     useEffect(() => {
-        if (softwareList && softwareList.length) {
-            // scrollToPlanet();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [softwareList]);
+        getSoftwareList()
+            .then((data) => {
+                setSoftwareList(data.software);
+            })
+            .catch(() => {
+                setSoftwareList(SOFTWARE_LIST_MOCK)
+            });
+    }, []);
 
     return {
         softwareList,

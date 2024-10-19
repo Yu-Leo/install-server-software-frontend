@@ -1,20 +1,17 @@
-// export interface IPlanetsConstellation {
-//     Id: number;
-// }
-
 export interface ISoftware {
-    Id: number;
-    Title: string;
-    Summary: string;
-    Price: number;
-    LogoFilePath: string;
+    pk: number;
+    title: string;
+    price: number;
+    installing_time_in_mins: number;
+    size_in_bytes: number;
+    summary: string;
+    description: string;
+    is_active: boolean;
+    logo_file_path: string;
 }
 
-// export interface IGetPlanetsResponse {
-//     constellation: IPlanetsConstellation;
-//     planets: IPlanet[];
-// }
-//
-// export interface IGetPlanetByIdResponse {
-//     planet: IPlanet;
-// }
+export interface IGetSoftwareListResponse {
+    software: ISoftware[];
+    install_software_request_id: number;
+    items_in_cart: number;
+}

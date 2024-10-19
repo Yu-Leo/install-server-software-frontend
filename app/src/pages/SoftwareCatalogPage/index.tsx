@@ -49,11 +49,11 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
 
                         {softwareList.map((software, index) => {
                             const props: ISoftwareCardProps = {
-                                id: software.Id,
-                                title: software.Title,
-                                summary: software.Summary,
-                                price: software.Price,
-                                logoFilePath: software.LogoFilePath,
+                                id: software.pk,
+                                title: software.title,
+                                summary: software.summary,
+                                price: software.price,
+                                logoFilePath: software.logo_file_path,
                             };
 
                             return (
