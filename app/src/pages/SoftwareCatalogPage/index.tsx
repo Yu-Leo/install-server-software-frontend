@@ -1,6 +1,7 @@
 import "./SoftwareCatalogPage.css";
 import {FC} from "react";
 import {ISoftwareCatalogPageProps} from "./typing";
+import {Link} from "react-router-dom";
 
 import {Navbar} from "../../components/Navbar";
 import {Button, Container} from "react-bootstrap";
@@ -9,10 +10,11 @@ import {useSoftwareCatalogPage} from "./useSoftwareCatalogPage.tsx";
 import {ISoftwareCardProps} from "../../components/SoftwareCard/typing.tsx";
 import cartImage from "/images/cart.png"
 
-
 export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
     const {
         softwareList,
+        installSoftwareRequestId,
+        itemsInCart,
         handleSearchSoftwareClick,
         handleSearchNameChange,
     } = useSoftwareCatalogPage();
@@ -40,11 +42,15 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
                             Поиск
                         </Button>
                     </div>
-                    <a href={`/request/1`} className="btn dark-blue-border">
-                        3
-                        <img src={cartImage} width="25"
-                             alt="cart"/> {/* TODO: исправить путь до иконфи корзины */}
-                    </a>
+
+                    <Link
+                        to={"/install_software_request/" + installSoftwareRequestId}
+                        className="btn dark-blue-border"
+                        state={{from: installSoftwareRequestId}}
+                    >
+                        {itemsInCart}
+                        <img src={cartImage} width="25" alt="cart"/>
+                    </Link>
                 </Container>
 
                 {softwareList && !!softwareList.length ? (

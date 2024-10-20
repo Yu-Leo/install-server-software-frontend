@@ -4,6 +4,7 @@ import {PrivatePages} from "./components/PricatePages";
 import {MainPage} from "./pages/MainPage";
 import {SoftwareCatalogPage} from "./pages/SoftwareCatalogPage";
 import {SoftwarePage} from "./pages/SoftwarePage";
+import {InstallSoftwareRequestPage} from "./pages/InstallSoftwareRequestPage";
 
 export const AppRoutes = (props: IGlobalProps) => {
     const routes: RouteObject[] = [
@@ -23,21 +24,13 @@ export const AppRoutes = (props: IGlobalProps) => {
                     path: "software/:id",
                     element: <SoftwarePage/>,
                 },
-                // /* {
-                //   path: "basket",
-                //   element: <BasketPage />,
-                // }, */
-                // {
-                //     path: "about",
-                //     element: <AboutPage />,
-                // },
+
+                {
+                    path: "install_software_request/:id",
+                    element: <InstallSoftwareRequestPage {...props}/>,
+                },
             ],
         },
-        // {
-        //     path: "/auth",
-        //     element: <AuthPage {...props} />,
-        // },
-
         // {
         //     path: "*",
         //     element: <NotFoundPage />,
