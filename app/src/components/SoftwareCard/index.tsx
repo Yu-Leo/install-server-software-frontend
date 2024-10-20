@@ -1,6 +1,7 @@
 import {FC} from "react";
 import {ISoftwareCardProps} from "./typing.tsx";
 import unknownImage from "/images/unknown.jpg"
+import {Link} from "react-router-dom";
 
 export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProps) => {
     return (
@@ -20,10 +21,14 @@ export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProp
                 </li>
             </ul>
             <div className="card-body">
-                {/* TODO: ссылки через роутинг*/}
-                <a href={`/software/${software.id}`} className="btn dark-blue-btn">
+                <Link
+                    to={"/software/" + software.id}
+                    id={software.title}
+                    className="btn dark-blue-btn"
+                    state={{from: software.title}}
+                >
                     Узнать подробнее
-                </a>
+                </Link>
             </div>
         </div>
     );

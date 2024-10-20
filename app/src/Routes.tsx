@@ -3,6 +3,7 @@ import {IGlobalProps} from "./App.typing";
 import {PrivatePages} from "./components/PricatePages";
 import {MainPage} from "./pages/MainPage";
 import {SoftwareCatalogPage} from "./pages/SoftwareCatalogPage";
+import {SoftwarePage} from "./pages/SoftwarePage";
 
 export const AppRoutes = (props: IGlobalProps) => {
     const routes: RouteObject[] = [
@@ -18,10 +19,10 @@ export const AppRoutes = (props: IGlobalProps) => {
                     path: "software_catalog",
                     element: <SoftwareCatalogPage {...props} />,
                 },
-                // {
-                //     path: "planet/:id",
-                //     element: <PlanetPage />,
-                // },
+                {
+                    path: "software/:id",
+                    element: <SoftwarePage/>,
+                },
                 // /* {
                 //   path: "basket",
                 //   element: <BasketPage />,

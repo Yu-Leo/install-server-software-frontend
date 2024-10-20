@@ -1,6 +1,6 @@
 import {sendRequest} from "../index.ts";
 
-import {IGetSoftwareListResponse} from "./typing.ts";
+import {IGetSoftwareListResponse, ISoftware} from "./typing.ts";
 
 export const getSoftwareList = async (searchTitle?: string) => {
     try {
@@ -11,20 +11,20 @@ export const getSoftwareList = async (searchTitle?: string) => {
         });
         return response;
     } catch (error) {
-        console.error("Error fetching planets:", error);
+        console.error("Error fetching software list:", error);
         throw error;
     }
 };
-//
-// export const getPlanetById = async (id: string) => {
-//     try {
-//         const response: IGetPlanetByIdResponse = await sendRequest({
-//             method: "GET",
-//             path: `/planet/${id}`,
-//         });
-//         return response;
-//     } catch (error) {
-//         console.error("Error fetching planet:", error);
-//         throw error;
-//     }
-// };
+
+export const getSoftwareById = async (id: string) => {
+    try {
+        const response: ISoftware = await sendRequest({
+            method: "GET",
+            path: `/planet/${id}`,
+        });
+        return response;
+    } catch (error) {
+        console.error("Error fetching software by id:", error);
+        throw error;
+    }
+};
