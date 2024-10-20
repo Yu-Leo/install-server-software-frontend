@@ -5,7 +5,7 @@ export const installSoftwareRequest: IInstallSoftwareRequestByIdResponse = {
     creation_datetime: "2024-10-20T15:07:21.219Z",
     formation_datetime: "2024-10-20T15:07:21.219Z",
     completion_datetime: "2024-10-20T15:07:21.219Z",
-    host: "string",
+    host: "123.43.23.53",
     client: 0,
     manager: 0,
     total_installing_time_in_min: 2147483647,
@@ -15,11 +15,11 @@ export const installSoftwareRequest: IInstallSoftwareRequestByIdResponse = {
             software: {
                 pk: 0,
                 title: "Docker",
-                price: 2147483647,
+                price: 100,
                 summary: "Описание Docker",
-                logo_file_path: "string"
+                logo_file_path: ""
             },
-            version: "string"
+            version: "1.12"
         },
     ]
 };

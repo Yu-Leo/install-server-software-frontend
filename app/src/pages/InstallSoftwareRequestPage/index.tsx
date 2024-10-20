@@ -6,11 +6,20 @@ import {IInstallSoftwareRequestPageProps} from "./typing";
 
 import {Navbar} from "../../components/Navbar";
 import {Container} from "react-bootstrap";
-import {ISoftwareCardProps} from "../../components/SoftwareCard/typing.tsx";
-import {SoftwareCard} from "../../components/SoftwareCard";
 import {getInstallSoftwareRequestById} from "../../core/api/software";
-import {IInstallSoftwareRequestByIdResponse} from "../../core/api/software/typing.ts";
+import {IInstallSoftwareRequestByIdResponse, ISoftwareInRequestItem} from "../../core/api/software/typing.ts";
 import {installSoftwareRequest as INSTALL_SOFTWARE_REQUEST_MOCK} from "../../core/mock/installSoftwareRequest.ts";
+import {SoftwareInRequestCard} from "../../components/SoftwareInRequestCard";
+import {ISoftwareInRequestCardProps} from "../../components/SoftwareInRequestCard/typing.tsx";
+
+function calculateTotalPrice(softwareItems?: (ISoftwareInRequestItem | undefined)[]): number {
+    return softwareItems?.reduce((total, item) => {
+        if (item && item.software) {
+            return total + item.software.price;
+        }
+        return total;
+    }, 0) || 0;
+}
 
 export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = () => {
     const {id} = useParams();
@@ -28,7 +37,6 @@ export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = 
         }
     }, [id]);
 
-
     return (
         <>
             <Navbar/>
@@ -36,37 +44,34 @@ export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = 
                 <div className="card mb-3 mt-4">
                     <div className="card-body">
                         <h5 className="card-title">
-                            Сервер пользователя: <strong>123.43.23.53</strong>
+                            Сервер пользователя: <strong>{installSoftwareRequestContentData?.host}</strong>
                         </h5>
                     </div>
                 </div>
 
                 {installSoftwareRequestContentData?.software_list && !!installSoftwareRequestContentData.software_list.length ? (
-                    <div className="row row-cols-1 row-cols-md-2
-                    row-cols-lg-4 g-4">
+                    <>
                         {installSoftwareRequestContentData.software_list.map((software, index) => {
-                            const props: ISoftwareCardProps = {
+                            const props: ISoftwareInRequestCardProps = {
                                 id: software.software.pk,
                                 title: software.software.title,
                                 summary: software.software.summary,
                                 price: software.software.price,
                                 logoFilePath: software.software.logo_file_path,
+                                version: software.version,
                             };
 
                             return (
-                                <div className="col">
-                                    <SoftwareCard key={index} {...props} /> {/* // TODO: не эти карточки*/}
-                                </div>
+                                <SoftwareInRequestCard key={index} {...props} />
                             );
                         })}
 
-                    </div>
+                    </>
                 ) : (
                     <Container className="d-flex justify-content-center mt-4 mb-5">
                         <h2>Пустой заказ</h2>
                     </Container>
                 )}
-
                 <div className="card mb-3 mt-4">
                     <div className="row g-0">
                         <div className="col-md-10">
@@ -78,7 +83,7 @@ export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = 
                         </div>
                         <div className="col-md-2">
                             <div className="card-body">
-                                <strong>123 руб.</strong>
+                                <strong>{calculateTotalPrice(installSoftwareRequestContentData?.software_list)} руб.</strong>
                             </div>
                         </div>
                     </div>
