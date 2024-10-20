@@ -9,7 +9,7 @@ import {ChangeEvent} from "../../App.typing.tsx";
 
 export const useSoftwareCatalogPage = () => {
     const [softwareList, setSoftwareList] = useState<ISoftware[]>([]);
-    const [installSoftwareRequestId, setInstallSoftwareRequestId] = useState<number>(0);
+    const [installSoftwareRequestId, setInstallSoftwareRequestId] = useState<number>();
     const [itemsInCart, setItemsInCart] = useState<number>(0);
 
     const [searchSoftwareTitle, setSearchSoftwareTitle] = useState("");

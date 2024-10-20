@@ -45,7 +45,7 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
 
                     <Link
                         to={"/install_software_request/" + installSoftwareRequestId}
-                        className="btn dark-blue-border"
+                        className={installSoftwareRequestId !== undefined && installSoftwareRequestId !== null ? "btn dark-blue-border" : "btn dark-blue-border non-clickable"}
                         state={{from: installSoftwareRequestId}}
                     >
                         {itemsInCart}
@@ -56,7 +56,6 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
                 {softwareList && !!softwareList.length ? (
                     <div className="row row-cols-1 row-cols-md-2
                     row-cols-lg-4 g-4">
-
                         {softwareList.map((software, index) => {
                             const props: ISoftwareCardProps = {
                                 id: software.pk,

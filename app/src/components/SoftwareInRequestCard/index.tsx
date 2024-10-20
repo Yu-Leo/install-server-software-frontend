@@ -34,7 +34,10 @@ export const SoftwareInRequestCard: FC<ISoftwareInRequestCardProps> = (software:
                 </div>
                 <div className="col-md-2">
                     <div className="card-body">
-                        <p className="card-text">Версия: <strong>{software.version}</strong></p>
+                        {(software.version ?
+                                <p className="card-text">Версия: <strong>{software.version}</strong></p>
+                                : <></>
+                        )}
                     </div>
                 </div>
                 <div className="col-md-2">

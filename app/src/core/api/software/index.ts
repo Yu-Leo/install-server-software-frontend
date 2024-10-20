@@ -34,7 +34,7 @@ export const getInstallSoftwareRequestById = async (id: string) => {
     try {
         const response: IInstallSoftwareRequestByIdResponse = await sendRequest({
             method: "GET",
-            path: `/install_software_request/${id}`,
+            path: `/install_software_requests/${id}`,
         });
         return response;
     } catch (error) {

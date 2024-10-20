@@ -17,9 +17,29 @@ export const installSoftwareRequest: IInstallSoftwareRequestByIdResponse = {
                 title: "Docker",
                 price: 100,
                 summary: "Описание Docker",
-                logo_file_path: ""
+                logo_file_path: "http://127.0.0.1:9000/server-soft-logos/0.png"
             },
-            version: "1.12"
+            version: "3.0"
         },
+        {
+            software: {
+                pk: 1,
+                title: "NodeJS",
+                price: 150,
+                summary: "Описание NodeJS",
+                logo_file_path: "http://127.0.0.1:9000/server-soft-logos/1.png"
+            },
+            version: "2.0"
+        },
+        {
+            software: {
+                pk: 2,
+                title: "Python",
+                price: 200,
+                summary: "Описание Python",
+                logo_file_path: "http://127.0.0.1:9000/server-soft-logos/2.png"
+            },
+            version: "1.0"
+        }
     ]
 };

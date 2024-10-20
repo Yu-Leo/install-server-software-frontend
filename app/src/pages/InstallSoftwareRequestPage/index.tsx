@@ -65,12 +65,9 @@ export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = 
                                 <SoftwareInRequestCard key={index} {...props} />
                             );
                         })}
-
                     </>
                 ) : (
-                    <Container className="d-flex justify-content-center mt-4 mb-5">
-                        <h2>Пустой заказ</h2>
-                    </Container>
+                    <></>
                 )}
                 <div className="card mb-3 mt-4">
                     <div className="row g-0">

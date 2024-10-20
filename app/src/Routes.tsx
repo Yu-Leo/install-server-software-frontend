@@ -19,7 +19,6 @@ export const AppRoutes = (props: IGlobalProps) => {
             path: "software/:id",
             element: <SoftwarePage/>,
         },
-
         {
             path: "install_software_request/:id",
             element: <InstallSoftwareRequestPage {...props}/>,
