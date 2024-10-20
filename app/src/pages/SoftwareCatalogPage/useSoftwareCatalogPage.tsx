@@ -20,10 +20,10 @@ export const useSoftwareCatalogPage = () => {
                 setSoftwareList(data.software);
             })
             .catch(() => {
-                const filteredPlanets = SOFTWARE_LIST_MOCK.filter((software) =>
+                const filteredSoftware = SOFTWARE_LIST_MOCK.filter((software) =>
                     software.title.toLowerCase().startsWith(searchSoftwareTitle.toLowerCase())
                 );
-                setSoftwareList(filteredPlanets);
+                setSoftwareList(filteredSoftware);
             });
     };
 

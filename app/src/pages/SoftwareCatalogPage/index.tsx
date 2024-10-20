@@ -49,7 +49,7 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
 
                     <Link
                         to={"/install_software_request/" + installSoftwareRequestId}
-                        className={installSoftwareRequestId !== undefined && installSoftwareRequestId !== null ? "btn dark-blue-border" : "btn dark-blue-border non-clickable"}
+                        className={installSoftwareRequestId !== undefined && installSoftwareRequestId !== null ? "btn dark-blue-border cart-button" : "btn dark-blue-border cart-button non-clickable"}
                         state={{from: installSoftwareRequestId}}
                     >
                         {itemsInCart}

@@ -10,7 +10,7 @@ export const Navbar: FC = () => {
         <>
             <NavbarComp expand="lg"
                         data-bs-theme="dark"
-                        className="dark-blue-back navbar-height"
+                        className="dark-blue-back"
             >
                 <Container>
                     <NavbarComp.Brand>

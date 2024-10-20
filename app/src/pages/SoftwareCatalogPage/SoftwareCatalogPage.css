@@ -37,6 +37,10 @@
     text-decoration: none;
 }
 
+.cart-button {
+    min-width: 65px;
+}
+
 @media (min-width: 1200px) {
 }
 
