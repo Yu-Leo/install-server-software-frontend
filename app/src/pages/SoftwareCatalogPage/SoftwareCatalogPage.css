@@ -8,6 +8,7 @@
 .dark-blue-btn {
     background-color: #202e3b;
     color: #fff;
+    border-color: #202e3b;
 }
 
 .dark-blue-btn:hover {

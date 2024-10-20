@@ -3,45 +3,49 @@ import {FC} from "react";
 import {ISoftwareCatalogPageProps} from "./typing";
 
 import {Navbar} from "../../components/Navbar";
-import {Container} from "react-bootstrap";
+import {Button, Container} from "react-bootstrap";
 import {SoftwareCard} from "../../components/SoftwareCard";
 import {useSoftwareCatalogPage} from "./useSoftwareCatalogPage.tsx";
 import {ISoftwareCardProps} from "../../components/SoftwareCard/typing.tsx";
+import cartImage from "/images/cart.png"
+
 
 export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
     const {
-        softwareList
+        softwareList,
+        handleSearchSoftwareClick,
+        handleSearchNameChange,
     } = useSoftwareCatalogPage();
 
     return (
         <>
             <Navbar/>
             <Container>
-                <form className="d-flex mt-4 mb-4">
+                <Container className="d-flex mt-4 mb-4 p-0">
                     <div className="flex-grow-1">
                         <input
-                            className="form-control"
+                            type="text"
+                            className="input form-control"
+                            onChange={handleSearchNameChange}
                             placeholder="Поиск"
                             aria-label="Поиск"
-                            name="software_title"
-                            type="text"
                         />
+
                     </div>
                     <div className="px-3">
-                        <input
-                            type="submit"
-                            className="btn dark-blue-btn ml-3 mr-3"
-                            value="Поиск"
-                        />
+                        <Button
+                            onClick={handleSearchSoftwareClick}
+                            className="dark-blue-btn ml-3 mr-3"
+                        >
+                            Поиск
+                        </Button>
                     </div>
-                    <div>
-                        <a href={`/request/1`} className="btn dark-blue-border">
-                            3
-                            <img src="images/cart.png" width="25" alt="cart"/> {/* TODO: исправить путь до иконфи корзины */}
-                        </a>
-                    </div>
-                </form>
-
+                    <a href={`/request/1`} className="btn dark-blue-border">
+                        3
+                        <img src={cartImage} width="25"
+                             alt="cart"/> {/* TODO: исправить путь до иконфи корзины */}
+                    </a>
+                </Container>
 
                 {softwareList && !!softwareList.length ? (
                     <div className="row row-cols-1 row-cols-md-2
