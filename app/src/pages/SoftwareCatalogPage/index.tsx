@@ -9,6 +9,7 @@ import {SoftwareCard} from "../../components/SoftwareCard";
 import {useSoftwareCatalogPage} from "./useSoftwareCatalogPage.tsx";
 import {ISoftwareCardProps} from "../../components/SoftwareCard/typing.tsx";
 import cartImage from "/images/cart.png"
+import {Breadcrumbs} from "../../components/Breadcrumbs";
 
 export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
     const {
@@ -23,6 +24,9 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
         <>
             <Navbar/>
             <Container>
+                <Breadcrumbs
+                    endItem="Каталог"
+                />
                 <Container className="d-flex mt-4 mb-4 p-0">
                     <div className="flex-grow-1">
                         <input

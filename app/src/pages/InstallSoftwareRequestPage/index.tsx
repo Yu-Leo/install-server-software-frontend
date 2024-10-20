@@ -11,6 +11,7 @@ import {IInstallSoftwareRequestByIdResponse, ISoftwareInRequestItem} from "../..
 import {installSoftwareRequest as INSTALL_SOFTWARE_REQUEST_MOCK} from "../../core/mock/installSoftwareRequest.ts";
 import {SoftwareInRequestCard} from "../../components/SoftwareInRequestCard";
 import {ISoftwareInRequestCardProps} from "../../components/SoftwareInRequestCard/typing.tsx";
+import {Breadcrumbs} from "../../components/Breadcrumbs";
 
 function calculateTotalPrice(softwareItems?: (ISoftwareInRequestItem | undefined)[]): number {
     return softwareItems?.reduce((total, item) => {
@@ -41,6 +42,16 @@ export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = 
         <>
             <Navbar/>
             <Container>
+                <Breadcrumbs
+                    middleItems={[
+                        {
+                            name: "Каталог",
+                            link: "/software_catalog"
+                        }
+                    ]}
+                    endItem={"Заказ на установку ПО № " + installSoftwareRequestContentData?.pk}
+                />
+
                 <div className="card mb-3 mt-4">
                     <div className="card-body">
                         <h5 className="card-title">

@@ -9,6 +9,7 @@ import {getSoftwareById} from "../../core/api/software";
 import {softwareList as SOFTWARE_LIST_MOCK} from "../../core/mock/softwareList.ts";
 import unknownImage from "/images/unknown.jpg"
 import {Navbar} from "../../components/Navbar";
+import {Breadcrumbs} from "../../components/Breadcrumbs";
 
 
 export const SoftwarePage: FC<ISoftwarePageProps> = () => {
@@ -42,6 +43,15 @@ export const SoftwarePage: FC<ISoftwarePageProps> = () => {
         <>
             <Navbar/>
             <Container className="div">
+                <Breadcrumbs
+                    middleItems={[
+                        {
+                            name: "Каталог",
+                            link: "/software_catalog"
+                        }
+                    ]}
+                    endItem={softwareData?.title}
+                />
                 <div className="row mt-4">
                     <div className="col">
                         <h2>{softwareData?.title}</h2>
