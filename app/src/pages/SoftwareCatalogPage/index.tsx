@@ -16,6 +16,7 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
         softwareList,
         installSoftwareRequestId,
         itemsInCart,
+        searchSoftwareTitle,
         handleSearchSoftwareClick,
         handleSearchNameChange,
     } = useSoftwareCatalogPage();
@@ -35,8 +36,8 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
                             onChange={handleSearchNameChange}
                             placeholder="Поиск"
                             aria-label="Поиск"
+                            value={searchSoftwareTitle}
                         />
-
                     </div>
                     <div className="px-3">
                         <Button
