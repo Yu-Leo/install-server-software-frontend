@@ -8,7 +8,7 @@ import {Button, Container} from "react-bootstrap";
 import {SoftwareCard} from "../../components/SoftwareCard";
 import {useSoftwareCatalogPage} from "./useSoftwareCatalogPage.tsx";
 import {ISoftwareCardProps} from "../../components/SoftwareCard/typing.tsx";
-import cartImage from "/images/cart.png"
+import cartImage from "/cart.png"
 import {Breadcrumbs} from "../../components/Breadcrumbs";
 
 export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {

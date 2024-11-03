@@ -7,7 +7,7 @@ import {ISoftware} from "../../core/api/software/typing.ts";
 
 import {getSoftwareById} from "../../core/api/software";
 import {softwareList as SOFTWARE_LIST_MOCK} from "../../core/mock/softwareList.ts";
-import unknownImage from "/images/unknown.jpg"
+import unknownImage from "/unknown.jpg"
 import {Navbar} from "../../components/Navbar";
 import {Breadcrumbs} from "../../components/Breadcrumbs";
 

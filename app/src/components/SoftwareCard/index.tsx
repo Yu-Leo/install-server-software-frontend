@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {ISoftwareCardProps} from "./typing.tsx";
-import unknownImage from "/images/unknown.jpg"
+import unknownImage from "/unknown.jpg"
 import {Link} from "react-router-dom";
 
 export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProps) => {

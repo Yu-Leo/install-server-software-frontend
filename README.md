@@ -11,8 +11,10 @@
 - **base-spa**: копия SSR версии приложения, развернутая на страницах с моковыми данными - ссылка
 
 ### Инструкция по запуску
-- Клонируйте репозиторий: `git clone https://github.com/Yu-Leo/bmstu-iu5-web-frontend.git`
-- Перейдите в директорию проекта: `cd app`
-- Установите зависимости: `npm install`
-- Запустите приложение: `npm start`
+1. Клонируйте репозиторий: `git clone https://github.com/Yu-Leo/bmstu-iu5-web-frontend.git`
+2. Перейдите в директорию проекта: `cd app`
+3. Установите зависимости: `npm install`
+4. `npm run generate-pwa-assets`
+5. Локальный запуск: `npm run dev`
+6. Деплой: `npm run deploy`
 После выполнения этих шагов приложение будет доступно по адресу http://localhost:3000.
