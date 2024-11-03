@@ -27,7 +27,7 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
                 <Breadcrumbs
                     endItem="Каталог"
                 />
-                <Container className="d-flex mt-4 mb-4 p-0">
+                <div className="d-flex mt-4 mb-4 p-0">
                     <div className="flex-grow-1">
                         <input
                             type="text"
@@ -55,7 +55,7 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
                         {itemsInCart}
                         <img src={cartImage} width="25" alt="cart"/>
                     </Link>
-                </Container>
+                </div>
 
                 {softwareList && !!softwareList.length ? (
                     <div className="row row-cols-1 row-cols-md-2
