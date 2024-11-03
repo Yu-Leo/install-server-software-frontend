@@ -8,5 +8,10 @@
   "theme_color": "#db4938",
   "orientation": "portrait-primary",
   "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "50x50",
+      "type": "image/png"
+    }
   ]
 }
