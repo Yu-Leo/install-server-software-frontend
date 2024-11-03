@@ -7,15 +7,15 @@ import {SoftwarePage} from "./pages/SoftwarePage";
 export const AppRoutes = (props: IGlobalProps) => {
     const routes: RouteObject[] = [
         {
-            path: "",
+            path: "/",
             element: <MainPage {...props} />,
         },
         {
-            path: "software_catalog",
+            path: "/software_catalog",
             element: <SoftwareCatalogPage {...props} />,
         },
         {
-            path: "software/:id",
+            path: "/software/:id",
             element: <SoftwarePage/>,
         },
     ];
