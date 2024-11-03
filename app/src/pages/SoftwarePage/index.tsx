@@ -59,14 +59,14 @@ export const SoftwarePage: FC<ISoftwarePageProps> = () => {
                         <p className=""><strong>Время установки:</strong> {softwareData?.installing_time_in_mins} мин.
                         </p>
                         <p className=""><strong>Размер:</strong> {softwareData?.size_in_bytes} байт </p>
-                        <p className="py-2"><strong>Описание</strong></p>
                     </div>
                     <div className="col">
-                        <img src={softwareData?.logo_file_path ? (softwareData?.logo_file_path) : (unknownImage)}
+                    <img src={softwareData?.logo_file_path ? (softwareData?.logo_file_path) : (unknownImage)}
                              alt={softwareData?.title}
                              width="200px"/>
                     </div>
                 </div>
+                <p className="py-2"><strong>Описание</strong></p>
                 <p>{softwareData?.description}</p>
             </Container>
         </>
