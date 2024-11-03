@@ -8,7 +8,7 @@ function App() {
     const globalProps = useGlobalProps();
 
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/bmstu-iu5-web-frontend">
             <AppRoutes {...globalProps} />
         </BrowserRouter>
     );
