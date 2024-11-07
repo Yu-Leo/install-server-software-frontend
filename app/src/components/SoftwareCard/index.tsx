@@ -20,7 +20,7 @@ export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProp
                     Цена: <strong>{software.price} руб.</strong>
                 </li>
             </ul>
-            <div className="card-body">
+            <div className="card-footer d-flex justify-content-between">
                 <Link
                     to={"/software/" + software.id}
                     id={software.title}
@@ -29,6 +29,9 @@ export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProp
                 >
                     Узнать подробнее
                 </Link>
+                <button className="btn dark-blue-border">
+                    Добавить
+                </button>
             </div>
         </div>
     );

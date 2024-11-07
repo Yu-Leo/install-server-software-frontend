@@ -24,7 +24,7 @@ export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
     return (
         <>
             <Navbar/>
-            <Container>
+            <Container className="mb-4">
                 <Breadcrumbs
                     endItem="Каталог"
                 />
