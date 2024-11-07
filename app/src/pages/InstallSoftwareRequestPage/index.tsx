@@ -52,12 +52,20 @@ export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = 
                     endItem={"Заказ на установку ПО № " + installSoftwareRequestContentData?.pk}
                 />
 
-                <div className="card mb-3 mt-4">
-                    <div className="card-body">
-                        <h5 className="card-title">
-                            Сервер пользователя: <strong>{installSoftwareRequestContentData?.host}</strong>
-                        </h5>
+                <div className="card card-body mb-3 mt-4 row g-0">
+                    <div className="row g-0">
+
+                        <div className="col-md-2">
+                            <h5 className="card-title">Сервер пользователя</h5>
+                        </div>
+
+                        <div className="col-md-2">
+                            <input type="text" className="form-control" aria-label="Sizing example input"
+                                   aria-describedby="inputGroup-sizing-default"
+                                   value={installSoftwareRequestContentData?.host} readOnly/>
+                        </div>
                     </div>
+
                 </div>
 
                 {installSoftwareRequestContentData?.software_list && !!installSoftwareRequestContentData.software_list.length ? (
@@ -80,7 +88,7 @@ export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = 
                 ) : (
                     <></>
                 )}
-                <div className="card mb-3 mt-4">
+                <div className="card mb-3">
                     <div className="row g-0">
                         <div className="col-md-10">
                             <div className="card-body">
@@ -95,6 +103,9 @@ export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = 
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="d-flex justify-content-end">
+                    <button type="button" className="btn dark-blue-btn">Оформить</button>
                 </div>
             </Container>
         </>

@@ -46,7 +46,7 @@ export const useSoftwareCatalogPage = () => {
                     software.title.toLowerCase().startsWith(searchSoftwareTitle.toLowerCase())
                 );
                 setSoftwareList(filteredSoftware);
-                setInstallSoftwareRequestId(0)
+                setInstallSoftwareRequestId(1)
                 setItemsInCart(INSTALL_SOFTWARE_REQUEST_MOCK.software_list.length)
             });
     }, []);

@@ -32,6 +32,9 @@
     color: #ffffff;
 }
 
+.close-col {
+    margin-top: -5px;
+}
 
 @media (min-width: 1200px) {
 }
