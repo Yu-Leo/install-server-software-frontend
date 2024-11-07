@@ -35,6 +35,9 @@
 .non-clickable {
     pointer-events: none;
     text-decoration: none;
+    background-color: #efefef;
+    border-color: #444;
+    color: #444;
 }
 
 .cart-button {
