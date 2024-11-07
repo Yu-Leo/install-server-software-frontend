@@ -9,6 +9,7 @@ import {LoginPage} from "./pages/LogInPage";
 import {NotFoundPage} from "./pages/NotFoundPage";
 import {ForbiddenPage} from "./pages/ForbiddenPage";
 import {UserAccountPage} from "./pages/UserAccountPage";
+import {InstallSoftwareRequestsListPage} from "./pages/InstallSoftwareRequestsListPage";
 
 export const AppRoutes = (props: IGlobalProps) => {
     const routes: RouteObject[] = [
@@ -27,6 +28,10 @@ export const AppRoutes = (props: IGlobalProps) => {
         {
             path: "/install_software_request/:id",
             element: <InstallSoftwareRequestPage {...props}/>,
+        },
+        {
+            path: "/install_software_requests_list",
+            element: <InstallSoftwareRequestsListPage {...props}/>,
         },
         {
             path: "/registration",
