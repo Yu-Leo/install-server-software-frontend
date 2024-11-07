@@ -31,6 +31,11 @@ export const Navbar: FC = () => {
                     </NavbarComp.Collapse>
                     <NavbarComp.Collapse className="justify-content-end">
                         <Nav className="me-3">
+                            <NavLink to="/user_account" className="text-white text-decoration-none">
+                                Аккаунт
+                            </NavLink>
+                        </Nav>
+                        <Nav className="me-3">
                             <NavLink to="/registration" className="text-white text-decoration-none">
                                 Регистрация
                             </NavLink>

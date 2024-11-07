@@ -8,6 +8,7 @@ import {RegistrationPage} from "./pages/RegistrationPage";
 import {LoginPage} from "./pages/LogInPage";
 import {NotFoundPage} from "./pages/NotFoundPage";
 import {ForbiddenPage} from "./pages/ForbiddenPage";
+import {UserAccountPage} from "./pages/UserAccountPage";
 
 export const AppRoutes = (props: IGlobalProps) => {
     const routes: RouteObject[] = [
@@ -34,6 +35,10 @@ export const AppRoutes = (props: IGlobalProps) => {
         {
             path: "/login",
             element: <LoginPage {...props}/>,
+        },
+        {
+            path: "/user_account",
+            element: <UserAccountPage {...props}/>,
         },
         {
             path: "/forbidden",
