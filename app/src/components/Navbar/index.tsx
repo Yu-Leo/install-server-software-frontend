@@ -23,9 +23,21 @@ export const Navbar: FC = () => {
                         className="outline-none"
                     />
                     <NavbarComp.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto gap-4 gap-sm-3">
+                        <Nav className="me-3">
                             <NavLink to="/software_catalog" className="text-white text-decoration-none">
                                 Каталог
+                            </NavLink>
+                        </Nav>
+                    </NavbarComp.Collapse>
+                    <NavbarComp.Collapse className="justify-content-end">
+                        <Nav className="me-3">
+                            <NavLink to="/registration" className="text-white text-decoration-none">
+                                Регистрация
+                            </NavLink>
+                        </Nav>
+                        <Nav className="me-3">
+                            <NavLink to="/login" className="text-white text-decoration-none">
+                                Вход
                             </NavLink>
                         </Nav>
                     </NavbarComp.Collapse>

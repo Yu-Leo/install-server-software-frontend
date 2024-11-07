@@ -4,6 +4,8 @@ import {MainPage} from "./pages/MainPage";
 import {SoftwareCatalogPage} from "./pages/SoftwareCatalogPage";
 import {SoftwarePage} from "./pages/SoftwarePage";
 import {InstallSoftwareRequestPage} from "./pages/InstallSoftwareRequestPage";
+import {RegistrationPage} from "./pages/RegistrationPage";
+import {LoginPage} from "./pages/LogInPage";
 
 export const AppRoutes = (props: IGlobalProps) => {
     const routes: RouteObject[] = [
@@ -22,6 +24,14 @@ export const AppRoutes = (props: IGlobalProps) => {
         {
             path: "/install_software_request/:id",
             element: <InstallSoftwareRequestPage {...props}/>,
+        },
+        {
+            path: "/registration",
+            element: <RegistrationPage {...props}/>,
+        },
+        {
+            path: "/login",
+            element: <LoginPage {...props}/>,
         },
     ];
 
