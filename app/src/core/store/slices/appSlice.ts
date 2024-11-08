@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export interface IAppData {
     searchSoftwareTitle: string;
+
 }
 
 const initialState: IAppData = {

@@ -16,6 +16,7 @@ export const useSoftwareCatalogPage = () => {
 
     const {searchSoftwareTitle} = useSelector(selectApp);
     const dispatch = useDispatch();
+
     const handleSearchSoftwareClick = () => {
         api.software.softwareList({software_title: searchSoftwareTitle})
             .then((data) => {

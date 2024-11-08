@@ -9,51 +9,42 @@
  * ---------------------------------------------------------------
  */
 
-export interface Software {
+export interface InstallSoftwareRequest {
   /** ID */
   pk?: number;
   /**
-   * Title
+   * Creation datetime
+   * @format date-time
+   */
+  creation_datetime?: string;
+  /**
+   * Formation datetime
+   * @format date-time
+   */
+  formation_datetime?: string | null;
+  /**
+   * Completion datetime
+   * @format date-time
+   */
+  completion_datetime?: string | null;
+  /**
+   * Host
    * @minLength 1
    * @maxLength 255
    */
-  title: string;
+  host: string;
+  /** Manager */
+  manager?: string;
   /**
-   * Price
+   * Total installing time in min
    * @min -2147483648
    * @max 2147483647
    */
-  price: number;
-  /**
-   * Installing time in mins
-   * @min -2147483648
-   * @max 2147483647
-   */
-  installing_time_in_mins: number;
-  /**
-   * Size in bytes
-   * @min -2147483648
-   * @max 2147483647
-   */
-  size_in_bytes: number;
-  /**
-   * Summary
-   * @minLength 1
-   */
-  summary: string;
-  /**
-   * Description
-   * @minLength 1
-   */
-  description: string;
-  /** Is active */
-  is_active?: boolean;
-  /**
-   * Logo file path
-   * @minLength 1
-   * @maxLength 255
-   */
-  logo_file_path?: string;
+  total_installing_time_in_min?: number | null;
+  /** Status */
+  status?: "DRAFT" | "DELETED" | "FORMED" | "COMPLETED" | "REJECTED";
+  /** Client */
+  client?: string;
 }
 
 export interface SoftwareForRequest {
@@ -133,44 +124,6 @@ export interface FullInstallSoftwareRequest {
   software_list: Related[];
 }
 
-export interface InstallSoftwareRequest {
-  /** ID */
-  pk?: number;
-  /**
-   * Creation datetime
-   * @format date-time
-   */
-  creation_datetime?: string;
-  /**
-   * Formation datetime
-   * @format date-time
-   */
-  formation_datetime?: string | null;
-  /**
-   * Completion datetime
-   * @format date-time
-   */
-  completion_datetime?: string | null;
-  /**
-   * Host
-   * @minLength 1
-   * @maxLength 255
-   */
-  host: string;
-  /** Manager */
-  manager?: string;
-  /**
-   * Total installing time in min
-   * @min -2147483648
-   * @max 2147483647
-   */
-  total_installing_time_in_min?: number | null;
-  /** Status */
-  status?: "DRAFT" | "DELETED" | "FORMED" | "COMPLETED" | "REJECTED";
-  /** Client */
-  client?: string;
-}
-
 export interface PutInstallSoftwareRequest {
   /** ID */
   pk?: number;
@@ -203,6 +156,53 @@ export interface PutInstallSoftwareRequest {
   total_installing_time_in_min?: number | null;
   /** Status */
   status?: "DRAFT" | "DELETED" | "FORMED" | "COMPLETED" | "REJECTED";
+}
+
+export interface Software {
+  /** ID */
+  pk?: number;
+  /**
+   * Title
+   * @minLength 1
+   * @maxLength 255
+   */
+  title: string;
+  /**
+   * Price
+   * @min -2147483648
+   * @max 2147483647
+   */
+  price: number;
+  /**
+   * Installing time in mins
+   * @min -2147483648
+   * @max 2147483647
+   */
+  installing_time_in_mins: number;
+  /**
+   * Size in bytes
+   * @min -2147483648
+   * @max 2147483647
+   */
+  size_in_bytes: number;
+  /**
+   * Summary
+   * @minLength 1
+   */
+  summary: string;
+  /**
+   * Description
+   * @minLength 1
+   */
+  description: string;
+  /** Is active */
+  is_active?: boolean;
+  /**
+   * Logo file path
+   * @minLength 1
+   * @maxLength 255
+   */
+  logo_file_path?: string;
 }
 
 export interface SoftwareInRequest {
@@ -413,7 +413,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<Software[], void>({
+      this.request<InstallSoftwareRequest[], void>({
         path: `/install_software_requests`,
         method: "GET",
         query: query,

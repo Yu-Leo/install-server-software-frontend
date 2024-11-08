@@ -3,9 +3,7 @@ import {FC, useEffect, useState} from "react";
 import {ISoftwarePageProps} from "./typing";
 import {useParams} from "react-router-dom";
 import {Container} from "react-bootstrap";
-// import {ISoftware} from "../../core/api/software/typing.ts";
-//
-// import {getSoftwareById} from "../../core/api/software";
+
 import {softwareList as SOFTWARE_LIST_MOCK} from "../../core/mock/softwareList.ts";
 import unknownImage from "/unknown.jpg"
 import {Navbar} from "../../components/Navbar";
