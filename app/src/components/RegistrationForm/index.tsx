@@ -1,7 +1,37 @@
-import {FC} from "react";
-import {IRegistrationFormProps} from "./typing.tsx";
+import {FC, useState} from "react";
+import {IRegistrationFormProps, IUserSignUpData} from "./typing.tsx";
+import {ChangeEvent} from "../../App.typing.tsx";
+import {api} from "../../core/api";
+import {useNavigate} from "react-router-dom";
 
 export const RegistrationForm: FC<IRegistrationFormProps> = () => {
+    const navigate = useNavigate();
+
+    const [loginFormData, setLoginFormData] = useState<IUserSignUpData>({
+        username: "",
+        email: "",
+        password: "",
+    });
+
+    const handleChange = (event: ChangeEvent) => {
+        const {id, value} = event.target;
+        setLoginFormData((prevState) => ({...prevState, [id]: value}));
+    }
+
+    const clickSignUp = () => {
+        if (loginFormData.username && loginFormData.password) {
+            api.users.usersCreateCreate(loginFormData)
+                .then((data) => {
+                    console.log("success", data)
+                    // TODO: алерт успеха
+                    navigate('/login');
+                })
+                .catch((data) => {
+                    console.log("fail", data) // TODO: алерт фейла
+                });
+        }
+    }
+
     return (
         <div className="card" style={{width: '100%', maxWidth: '350px'}}>
             <div className="card-body">
@@ -16,6 +46,8 @@ export const RegistrationForm: FC<IRegistrationFormProps> = () => {
                             id="username"
                             className="form-control"
                             placeholder="Введите логин"
+                            value={loginFormData.username}
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -28,6 +60,8 @@ export const RegistrationForm: FC<IRegistrationFormProps> = () => {
                             id="email"
                             className="form-control"
                             placeholder="Введите e-mail"
+                            value={loginFormData.email}
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -40,10 +74,12 @@ export const RegistrationForm: FC<IRegistrationFormProps> = () => {
                             id="password"
                             className="form-control"
                             placeholder="Введите пароль"
+                            value={loginFormData.password}
+                            onChange={handleChange}
                             required
                         />
                     </div>
-                    <button type="submit" className="btn dark-blue-btn w-100">
+                    <button type="button" className="btn dark-blue-btn w-100" onClick={clickSignUp}>
                         Зарегистрироваться
                     </button>
                 </form>
