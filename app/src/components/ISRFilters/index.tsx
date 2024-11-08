@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {IISRFiltersProps} from "./typing.tsx";
-import {Card, Form} from "react-bootstrap";
+import {Button, Card, Form} from "react-bootstrap";
 
 
 export const ISRFilters: FC<IISRFiltersProps> = (props: IISRFiltersProps) => {
@@ -13,17 +13,17 @@ export const ISRFilters: FC<IISRFiltersProps> = (props: IISRFiltersProps) => {
                             <Form.Group controlId="status">
                                 <Form.Label>Статус</Form.Label>
                                 <Form.Select value={props.selectedStatus} onChange={props.handleStatusChange}>
-                                    <option value="">Выберите статус</option>
-                                    <option value="active">В работе</option>
-                                    <option value="inactive">Завершена</option>
-                                    <option value="pending">Отклонена</option>
+                                    <option value="">Любой статус</option>
+                                    <option value="FORMED">В работе</option>
+                                    <option value="COMPLETED">Завершена</option>
+                                    <option value="REJECTED">Отклонена</option>
                                 </Form.Select>
                             </Form.Group>
                         </div>
 
                         <div className="flex-grow-1  pe-3">
                             <Form.Group controlId="startDate">
-                                <Form.Label>Дата начала</Form.Label>
+                                <Form.Label>Дата оформления c</Form.Label>
                                 <Form.Control
                                     type="date"
                                     value={props.selectedStartDate}
@@ -34,7 +34,7 @@ export const ISRFilters: FC<IISRFiltersProps> = (props: IISRFiltersProps) => {
 
                         <div className="flex-grow-1  pe-3">
                             <Form.Group controlId="endDate">
-                                <Form.Label>Дата окончания</Form.Label>
+                                <Form.Label>Дата оформления по</Form.Label>
                                 <Form.Control
                                     type="date"
                                     value={props.selectedEndDate}
@@ -42,10 +42,12 @@ export const ISRFilters: FC<IISRFiltersProps> = (props: IISRFiltersProps) => {
                                 />
                             </Form.Group>
                         </div>
-
-                        <button className="btn dark-blue-btn">
+                        <Button
+                            onClick={props.handleFilterISRClick}
+                            className="btn dark-blue-btn"
+                        >
                             Показать
-                        </button>
+                        </Button>
                     </div>
                 </Form>
             </Card.Body>
