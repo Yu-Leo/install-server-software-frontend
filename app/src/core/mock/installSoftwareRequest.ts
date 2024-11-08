@@ -1,6 +1,6 @@
-import {IInstallSoftwareRequestByIdResponse} from "../api/software/typing.ts";
+import {FullInstallSoftwareRequest} from "../api/Api.ts";
 
-export const installSoftwareRequest: IInstallSoftwareRequestByIdResponse = {
+export const installSoftwareRequest: FullInstallSoftwareRequest = {
     pk: 0,
     creation_datetime: "2024-10-20T15:07:21.219Z",
     formation_datetime: "2024-10-20T15:07:21.219Z",

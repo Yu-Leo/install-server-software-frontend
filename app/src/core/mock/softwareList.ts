@@ -1,6 +1,6 @@
-import {ISoftware} from "../api/software/typing.ts";
+import {Software} from "../api/Api.ts";
 
-export const softwareList: ISoftware[] = [
+export const softwareList: Software[] = [
     {
         pk: 0,
         title: 'Docker',

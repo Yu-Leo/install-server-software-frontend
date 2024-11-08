@@ -6,14 +6,14 @@ import {IInstallSoftwareRequestPageProps} from "./typing";
 
 import {Navbar} from "../../components/Navbar";
 import {Container} from "react-bootstrap";
-import {getInstallSoftwareRequestById} from "../../core/api/software";
-import {IInstallSoftwareRequestByIdResponse, ISoftwareInRequestItem} from "../../core/api/software/typing.ts";
+import {api} from "../../core/api";
+import {FullInstallSoftwareRequest, Related} from "../../core/api/Api.ts";
 import {installSoftwareRequest as INSTALL_SOFTWARE_REQUEST_MOCK} from "../../core/mock/installSoftwareRequest.ts";
 import {SoftwareInRequestCard} from "../../components/SoftwareInRequestCard";
 import {ISoftwareInRequestCardProps} from "../../components/SoftwareInRequestCard/typing.tsx";
 import {Breadcrumbs} from "../../components/Breadcrumbs";
 
-function calculateTotalPrice(softwareItems?: (ISoftwareInRequestItem | undefined)[]): number {
+function calculateTotalPrice(softwareItems?: (Related | undefined)[]): number {
     return softwareItems?.reduce((total, item) => {
         if (item && item.software) {
             return total + item.software.price;
@@ -24,13 +24,13 @@ function calculateTotalPrice(softwareItems?: (ISoftwareInRequestItem | undefined
 
 export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = () => {
     const {id} = useParams();
-    const [installSoftwareRequestContentData, setInstallSoftwareRequestContentData] = useState<IInstallSoftwareRequestByIdResponse>();
+    const [installSoftwareRequestContentData, setInstallSoftwareRequestContentData] = useState<FullInstallSoftwareRequest>();
 
     useEffect(() => {
         if (id) {
-            getInstallSoftwareRequestById(id)
+            api.installSoftwareRequests.installSoftwareRequestsRead(id)
                 .then((data) => {
-                    setInstallSoftwareRequestContentData(data);
+                    setInstallSoftwareRequestContentData(data.data);
                 })
                 .catch(() => {
                     setInstallSoftwareRequestContentData(INSTALL_SOFTWARE_REQUEST_MOCK)
@@ -70,7 +70,7 @@ export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = 
 
                 {installSoftwareRequestContentData?.software_list && !!installSoftwareRequestContentData.software_list.length ? (
                     <>
-                        {installSoftwareRequestContentData.software_list.map((software, index) => {
+                        {installSoftwareRequestContentData.software_list.map((software: Related, index: number) => {
                             const props: ISoftwareInRequestCardProps = {
                                 id: software.software.pk,
                                 title: software.software.title,

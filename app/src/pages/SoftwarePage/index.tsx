@@ -3,24 +3,26 @@ import {FC, useEffect, useState} from "react";
 import {ISoftwarePageProps} from "./typing";
 import {useParams} from "react-router-dom";
 import {Container} from "react-bootstrap";
-import {ISoftware} from "../../core/api/software/typing.ts";
-
-import {getSoftwareById} from "../../core/api/software";
+// import {ISoftware} from "../../core/api/software/typing.ts";
+//
+// import {getSoftwareById} from "../../core/api/software";
 import {softwareList as SOFTWARE_LIST_MOCK} from "../../core/mock/softwareList.ts";
 import unknownImage from "/unknown.jpg"
 import {Navbar} from "../../components/Navbar";
 import {Breadcrumbs} from "../../components/Breadcrumbs";
+import {Software} from "../../core/api/Api.ts";
+import {api} from "../../core/api";
 
 
 export const SoftwarePage: FC<ISoftwarePageProps> = () => {
     const {id} = useParams();
-    const [softwareData, setSoftwareData] = useState<ISoftware | null>(null);
+    const [softwareData, setSoftwareData] = useState<Software | null>(null);
 
     useEffect(() => {
         if (id) {
-            getSoftwareById(id)
+            api.software.softwareRead(id)
                 .then((data) => {
-                    setSoftwareData(data);
+                    setSoftwareData(data.data);
                 })
                 .catch(() => {
                     const software = SOFTWARE_LIST_MOCK.find(
@@ -61,7 +63,7 @@ export const SoftwarePage: FC<ISoftwarePageProps> = () => {
                         <p className=""><strong>Размер:</strong> {softwareData?.size_in_bytes} байт </p>
                     </div>
                     <div className="col">
-                    <img src={softwareData?.logo_file_path ? (softwareData?.logo_file_path) : (unknownImage)}
+                        <img src={softwareData?.logo_file_path ? (softwareData?.logo_file_path) : (unknownImage)}
                              alt={softwareData?.title}
                              width="200px"/>
                     </div>
