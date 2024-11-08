@@ -6,8 +6,6 @@ import {SoftwarePage} from "./pages/SoftwarePage";
 import {InstallSoftwareRequestPage} from "./pages/InstallSoftwareRequestPage";
 import {RegistrationPage} from "./pages/RegistrationPage";
 import {LoginPage} from "./pages/LogInPage";
-import {NotFoundPage} from "./pages/NotFoundPage";
-import {ForbiddenPage} from "./pages/ForbiddenPage";
 import {UserAccountPage} from "./pages/UserAccountPage";
 import {InstallSoftwareRequestsListPage} from "./pages/InstallSoftwareRequestsListPage";
 
@@ -44,14 +42,6 @@ export const AppRoutes = (props: IGlobalProps) => {
         {
             path: "/user_account",
             element: <UserAccountPage {...props}/>,
-        },
-        {
-            path: "/forbidden",
-            element: <ForbiddenPage/>,
-        },
-        {
-            path: "*",
-            element: <NotFoundPage/>,
         },
     ];
 
