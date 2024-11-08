@@ -1,5 +1,4 @@
 import {RouteObject, useRoutes} from "react-router-dom";
-import {IGlobalProps} from "./App.typing";
 import {MainPage} from "./pages/MainPage";
 import {SoftwareCatalogPage} from "./pages/SoftwareCatalogPage";
 import {SoftwarePage} from "./pages/SoftwarePage";
@@ -8,41 +7,55 @@ import {RegistrationPage} from "./pages/RegistrationPage";
 import {LoginPage} from "./pages/LogInPage";
 import {UserAccountPage} from "./pages/UserAccountPage";
 import {InstallSoftwareRequestsListPage} from "./pages/InstallSoftwareRequestsListPage";
+import {MainLayout} from "./components/MainLayout";
+import {PrivatePageFirewall} from "./components/PrivatePageFirewall";
 
-export const AppRoutes = (props: IGlobalProps) => {
+export const AppRoutes = () => {
     const routes: RouteObject[] = [
         {
-            path: "/",
-            element: <MainPage {...props} />,
+            element: <MainLayout/>,
+            children: [
+                {
+                    element: <PrivatePageFirewall/>,
+                    children: [
+                        {
+                            path: "/install_software_request/:id",
+                            element: <InstallSoftwareRequestPage/>,
+                        },
+                        {
+                            path: "/install_software_requests_list",
+                            element: <InstallSoftwareRequestsListPage/>,
+                        },
+                    ],
+                },
+                {
+                    path: "/",
+                    element: <MainPage/>,
+                },
+                {
+                    path: "/software_catalog",
+                    element: <SoftwareCatalogPage/>,
+                },
+                {
+                    path: "/software/:id",
+                    element: <SoftwarePage/>,
+                },
+                {
+                    path: "/registration",
+                    element: <RegistrationPage/>,
+                },
+                {
+                    path: "/login",
+                    element: <LoginPage/>,
+                },
+                {
+                    path: "/user_account",
+                    element: <UserAccountPage/>,
+                },
+            ],
         },
-        {
-            path: "/software_catalog",
-            element: <SoftwareCatalogPage {...props} />,
-        },
-        {
-            path: "/software/:id",
-            element: <SoftwarePage/>,
-        },
-        {
-            path: "/install_software_request/:id",
-            element: <InstallSoftwareRequestPage {...props}/>,
-        },
-        {
-            path: "/install_software_requests_list",
-            element: <InstallSoftwareRequestsListPage {...props}/>,
-        },
-        {
-            path: "/registration",
-            element: <RegistrationPage {...props}/>,
-        },
-        {
-            path: "/login",
-            element: <LoginPage {...props}/>,
-        },
-        {
-            path: "/user_account",
-            element: <UserAccountPage {...props}/>,
-        },
+
+
     ];
 
     const routeResult = useRoutes(routes);

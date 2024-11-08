@@ -1,15 +1,12 @@
 import "./InstallSoftwareRequestsListPage.css";
-import {FC} from "react";
-
 import {Container} from 'react-bootstrap';
-import {IInstallSoftwareRequestsListPageProps} from "./typing";
 import {Navbar} from "../../components/Navbar";
 import {ISRFilters} from "../../components/ISRFilters";
 import {useInstallSoftwareRequestsListPage} from "./useInstallSoftwareRequestsListPage.tsx";
 import {ISRTable} from "../../components/ISRTable";
 
 
-export const InstallSoftwareRequestsListPage: FC<IInstallSoftwareRequestsListPageProps> = () => {
+export const InstallSoftwareRequestsListPage = () => {
     const {tableProps, filtersProps} =
         useInstallSoftwareRequestsListPage();
 

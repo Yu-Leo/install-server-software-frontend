@@ -1,6 +1,5 @@
 import "./SoftwarePage.css";
-import {FC, useEffect, useState} from "react";
-import {ISoftwarePageProps} from "./typing";
+import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Container} from "react-bootstrap";
 
@@ -12,7 +11,7 @@ import {Software} from "../../core/api/Api.ts";
 import {api} from "../../core/api";
 
 
-export const SoftwarePage: FC<ISoftwarePageProps> = () => {
+export const SoftwarePage = () => {
     const {id} = useParams();
     const [softwareData, setSoftwareData] = useState<Software | null>(null);
 

@@ -1,8 +1,6 @@
 import "./InstallSoftwareRequestPage.css";
-import {FC, useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
-
-import {IInstallSoftwareRequestPageProps} from "./typing";
 
 import {Navbar} from "../../components/Navbar";
 import {Container} from "react-bootstrap";
@@ -22,7 +20,7 @@ function calculateTotalPrice(softwareItems?: (Related | undefined)[]): number {
     }, 0) || 0;
 }
 
-export const InstallSoftwareRequestPage: FC<IInstallSoftwareRequestPageProps> = () => {
+export const InstallSoftwareRequestPage = () => {
     const {id} = useParams();
     const [installSoftwareRequestContentData, setInstallSoftwareRequestContentData] = useState<FullInstallSoftwareRequest>();
 

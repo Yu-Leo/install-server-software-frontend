@@ -1,6 +1,4 @@
 import "./SoftwareCatalogPage.css";
-import {FC} from "react";
-import {ISoftwareCatalogPageProps} from "./typing";
 import {Link} from "react-router-dom";
 
 import {Navbar} from "../../components/Navbar";
@@ -11,7 +9,7 @@ import {ISoftwareCardProps} from "../../components/SoftwareCard/typing.tsx";
 import cartImage from "/cart.png"
 import {Breadcrumbs} from "../../components/Breadcrumbs";
 
-export const SoftwareCatalogPage: FC<ISoftwareCatalogPageProps> = () => {
+export const SoftwareCatalogPage = () => {
     const {
         softwareList,
         installSoftwareRequestId,

@@ -1,12 +1,9 @@
 import "./LoginPage.css";
-import {FC} from "react";
-import {ILoginPageProps} from "./typing";
-
 import {Container} from "react-bootstrap";
 import {Navbar} from "../../components/Navbar";
 import {LogInForm} from "../../components/LogInForm";
 
-export const LoginPage: FC<ILoginPageProps> = () => {
+export const LoginPage = () => {
     return (
         <>
             <Navbar/>

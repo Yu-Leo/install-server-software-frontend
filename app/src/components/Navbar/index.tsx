@@ -42,11 +42,17 @@ export const Navbar: FC = () => {
                                 Каталог
                             </NavLink>
                         </Nav>
-                        <Nav className="me-3">
-                            <NavLink to="/install_software_requests_list" className="text-white text-decoration-none">
-                                Заявки
-                            </NavLink>
-                        </Nav>
+
+                        {isAuth ? (
+                            <Nav className="me-3">
+                                <NavLink to="/install_software_requests_list"
+                                         className="text-white text-decoration-none">
+                                    Заявки
+                                </NavLink>
+                            </Nav>
+                        ) : (
+                            <></>
+                        )}
                     </NavbarComp.Collapse>
 
                     <NavbarComp.Collapse className="justify-content-end">
