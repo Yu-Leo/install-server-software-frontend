@@ -11,9 +11,10 @@ import {Breadcrumbs} from "../../components/Breadcrumbs";
 export const SoftwareCatalogPage = () => {
     const {
         softwareList,
-        installSoftwareRequestId,
+        ISRId,
         itemsInCart,
         searchSoftwareTitle,
+        updateCatalogPageFunc,
         handleSearchSoftwareClick,
         handleSearchNameChange,
     } = useSoftwareCatalogPage();
@@ -44,9 +45,9 @@ export const SoftwareCatalogPage = () => {
                 </div>
 
                 <Link
-                    to={"/install_software_request/" + installSoftwareRequestId}
-                    className={installSoftwareRequestId !== undefined && installSoftwareRequestId !== null && installSoftwareRequestId !== 0 ? "btn dark-blue-border cart-button" : "btn cart-button non-clickable"}
-                    state={{from: installSoftwareRequestId}}
+                    to={"/install_software_request/" + ISRId}
+                    className={ISRId !== undefined && ISRId !== null && ISRId !== 0 ? "btn dark-blue-border cart-button" : "btn cart-button non-clickable"}
+                    state={{from: ISRId}}
                 >
                     {itemsInCart}
                     <img src={cartImage} width="25" alt="cart"/>
@@ -63,6 +64,7 @@ export const SoftwareCatalogPage = () => {
                             summary: software.summary,
                             price: software.price,
                             logoFilePath: software.logo_file_path || "",
+                            updateCatalogPageFunc: updateCatalogPageFunc,
                         };
 
                         return (

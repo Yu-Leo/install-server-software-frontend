@@ -2,8 +2,45 @@ import {FC} from "react";
 import {ISoftwareCardProps} from "./typing.tsx";
 import unknownImage from "/unknown.jpg"
 import {Link} from "react-router-dom";
+import {store, useSelector} from "../../core/store";
+import {selectUser} from "../../core/store/slices/selectors.ts";
+import {api} from "../../core/api";
+import {addNotification} from "../../core/store/slices/appSlice.ts";
 
 export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProps) => {
+    const {isAuth} = useSelector(selectUser);
+
+    const clickAddItem = () => {
+        api.software.softwareAddCreate(software.id.toString())
+            .then(() => {
+                software.updateCatalogPageFunc();
+                store.dispatch(
+                    addNotification({
+                        message: "ПО добавлено в заявку на установку",
+                        isError: false,
+                    })
+                );
+            })
+            .catch((data) => {
+                    if (data.status == 400) {
+                        store.dispatch(
+                            addNotification({
+                                message: "ПО уже добавлено в заявку",
+                                isError: true,
+                            })
+                        );
+                    } else {
+                        store.dispatch(
+                            addNotification({
+                                message: "Ошибка сервера",
+                                isError: true,
+                            })
+                        );
+                    }
+                }
+            )
+    };
+
     return (
         <div className="card h-100">
             <img
@@ -29,9 +66,18 @@ export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProp
                 >
                     Узнать подробнее
                 </Link>
-                <button className="btn dark-blue-border">
-                    Добавить
-                </button>
+
+                {
+                    isAuth ?
+                        <button
+                            className="btn dark-blue-border"
+                            onClick={clickAddItem}
+                        >
+                            Добавить
+                        </button>
+                        :
+                        <></>
+                }
             </div>
         </div>
     );

@@ -4,4 +4,5 @@ export interface ISoftwareCardProps {
     summary: string;
     price: number;
     logoFilePath: string;
+    updateCatalogPageFunc: () => void;
 }

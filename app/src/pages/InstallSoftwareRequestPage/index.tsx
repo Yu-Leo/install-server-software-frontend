@@ -36,7 +36,7 @@ export const InstallSoftwareRequestPage = () => {
     }, [id]);
 
     return (
-        <Container>
+        <Container className="mb-4">
             <Breadcrumbs
                 middleItems={[
                     {
