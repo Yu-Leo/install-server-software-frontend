@@ -260,6 +260,16 @@ export interface User {
   password: string;
 }
 
+export interface UserUpdate {
+  /**
+   * Email
+   * @format email
+   */
+  email?: string;
+  /** Password */
+  password?: string;
+}
+
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
 import axios from "axios";
 
@@ -708,6 +718,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "POST",
         body: data,
         secure: true,
+        type: ContentType.Json,
         ...params,
       }),
 
@@ -761,12 +772,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request PUT:/users/update
      * @secure
      */
-    usersUpdateUpdate: (data: User, params: RequestParams = {}) =>
+    usersUpdateUpdate: (data: UserUpdate, params: RequestParams = {}) =>
       this.request<User, void>({
         path: `/users/update`,
         method: "PUT",
         body: data,
         secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
