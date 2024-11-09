@@ -1,12 +1,12 @@
-import {FC, useState} from "react";
-import {IRegistrationFormProps, IUserSignUpData} from "./typing.tsx";
+import {useState} from "react";
+import {IUserSignUpData} from "./typing.tsx";
 import {ChangeEvent} from "../../App.typing.tsx";
 import {api} from "../../core/api";
 import {useNavigate} from "react-router-dom";
 import {store} from "../../core/store";
 import {addNotification} from "../../core/store/slices/appSlice.ts";
 
-export const RegistrationForm: FC<IRegistrationFormProps> = () => {
+export const RegistrationForm = () => {
     const navigate = useNavigate();
 
     const [loginFormData, setLoginFormData] = useState<IUserSignUpData>({
@@ -22,8 +22,7 @@ export const RegistrationForm: FC<IRegistrationFormProps> = () => {
     const clickSignUp = () => {
         if (loginFormData.username && loginFormData.password) {
             api.users.usersCreateCreate(loginFormData)
-                .then((data) => {
-                    console.log("success", data)
+                .then(() => {
                     store.dispatch(
                         addNotification({
                             message: "Вы успешно зарегистрировались. Войдите",

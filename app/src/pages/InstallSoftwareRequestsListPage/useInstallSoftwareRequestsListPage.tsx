@@ -33,7 +33,6 @@ export const useInstallSoftwareRequestsListPage = () => {
     };
 
     const handleFilterISRClick = () => {
-        console.log(filterISRStatus, mapStringToOptQueryParam(filterISRStatus), filterISRStartDate, filterISREndDate);
         api.installSoftwareRequests.installSoftwareRequestsList(
             {
                 status: mapStringToOptQueryParam(filterISRStatus),
@@ -55,7 +54,9 @@ export const useInstallSoftwareRequestsListPage = () => {
             })
     };
 
-    useEffect(handleFilterISRClick, []);
+    useEffect(handleFilterISRClick,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        []);
 
     const filtersProps: IISRFiltersProps = {
         selectedStatus: filterISRStatus,

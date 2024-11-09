@@ -1,11 +1,11 @@
-import {FC, useState} from "react";
-import {IUserAccountData, IUserAccountFormProps} from "./typing.tsx";
+import {useState} from "react";
+import {IUserAccountData} from "./typing.tsx";
 import {ChangeEvent} from "../../App.typing.tsx";
 import {store} from "../../core/store";
 import {api} from "../../core/api";
 import {addNotification} from "../../core/store/slices/appSlice.ts";
 
-export const UserAccountForm: FC<IUserAccountFormProps> = () => {
+export const UserAccountForm = () => {
     const [userAccountFormData, setUserAccountFormData] = useState<IUserAccountData>({
         email: undefined,
         password: undefined,

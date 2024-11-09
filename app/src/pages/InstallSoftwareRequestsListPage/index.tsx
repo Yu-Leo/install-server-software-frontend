@@ -9,8 +9,6 @@ export const InstallSoftwareRequestsListPage = () => {
     const {tableProps, filtersProps} =
         useInstallSoftwareRequestsListPage();
 
-    // console.log(isPageLoading) // TODO
-
     return (
         <Container>
             <h1 className="m-3">Заявки</h1>

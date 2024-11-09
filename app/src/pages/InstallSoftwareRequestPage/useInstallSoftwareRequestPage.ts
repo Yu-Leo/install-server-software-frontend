@@ -53,7 +53,9 @@ export const useInstallSoftwareRequestPage = () => {
         }
     }
 
-    useEffect(updPage, []);
+    useEffect(updPage,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        []);
 
     const handleChangeHost = (e: ChangeEvent) => {
         setHost(e.target.value)
@@ -70,7 +72,7 @@ export const useInstallSoftwareRequestPage = () => {
                 );
                 navigate('/software_catalog');
             })
-            .catch((_) => {
+            .catch(() => {
                     store.dispatch(
                         addNotification({
                             message: "Ошибка удаления заявки",
@@ -85,8 +87,7 @@ export const useInstallSoftwareRequestPage = () => {
         let failedVersion = false
         for (const [key, value] of Object.entries(versions)) {
             try {
-                const putVersionRespData = await api.softwareInRequest.softwareInRequestPutUpdate(id || "", key.toString(), {version: value})
-                console.log(putVersionRespData)
+                await api.softwareInRequest.softwareInRequestPutUpdate(id || "", key.toString(), {version: value})
             } catch (error) {
                 if (axios.isAxiosError(error)) {
                     if (error.response?.status == 400) {
@@ -113,8 +114,7 @@ export const useInstallSoftwareRequestPage = () => {
             return
         }
         try {
-            const putRespData = await api.installSoftwareRequests.installSoftwareRequestsPutUpdate(id || "", {host: host})
-            console.log(putRespData)
+            await api.installSoftwareRequests.installSoftwareRequestsPutUpdate(id || "", {host: host})
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 if (error.response?.status == 400) {
@@ -154,6 +154,7 @@ export const useInstallSoftwareRequestPage = () => {
                     isError: true,
                 })
             );
+            console.log(error)
             return
         }
     }

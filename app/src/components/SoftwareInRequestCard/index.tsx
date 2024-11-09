@@ -17,6 +17,7 @@ export const SoftwareInRequestCard: FC<ISoftwareInRequestCardProps> = (software:
 
     useEffect(() => {
         setVersion(software.version)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleDeleteClick = () => {

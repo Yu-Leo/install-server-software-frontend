@@ -1,5 +1,5 @@
-import {FC, useState} from "react";
-import {ILoginFormProps, IUserLoginData} from "./typing.tsx";
+import {useState} from "react";
+import {IUserLoginData} from "./typing.tsx";
 import {ChangeEvent} from "../../App.typing.tsx";
 import {api} from "../../core/api";
 import {store, useDispatch} from "../../core/store";
@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom';
 import {addNotification} from "../../core/store/slices/appSlice.ts";
 import {USER_NAME} from "../../env.tsx";
 
-export const LogInForm: FC<ILoginFormProps> = () => {
+export const LogInForm = () => {
     const navigate = useNavigate();
 
     const [loginFormData, setLoginFormData] = useState<IUserLoginData>({

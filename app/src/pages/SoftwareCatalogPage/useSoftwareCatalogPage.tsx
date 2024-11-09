@@ -44,7 +44,9 @@ export const useSoftwareCatalogPage = () => {
         dispatch(saveSearchSoftwareTitle(e.target.value))
     };
 
-    useEffect(handleSearchSoftwareClick, []);
+    useEffect(handleSearchSoftwareClick,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        []);
 
     return {
         softwareList,

@@ -18,8 +18,10 @@ export const Navbar: FC = () => {
 
     const logout = () => {
         api.users.usersLogoutCreate()
-            .then(() => console.log("logout"))
-            .catch(err => console.log(err));
+            .then(() => {
+            })
+            .catch(() => {
+            });
         localStorage.removeItem(USER_NAME)
         store.dispatch(
             addNotification({
