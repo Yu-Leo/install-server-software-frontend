@@ -24,6 +24,7 @@ export const useInstallSoftwareRequestPage = () => {
             delete newVersions[key];
             return newVersions;
         });
+        updPage()
     }
 
     const updVersion = (key: number, version: string) => {
@@ -156,7 +157,6 @@ export const useInstallSoftwareRequestPage = () => {
             return
         }
     }
-
 
     const handleFormClick = () => {
         formISR()
