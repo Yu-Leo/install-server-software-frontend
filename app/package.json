@@ -1,9 +1,9 @@
 {
-  "name": "bmstu-iu5-web-frontend",
+  "name": "install-server-software-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://yu-leo.github.io/bmstu-iu5-web-frontend",
+  "homepage": "https://yu-leo.github.io/install-server-software-frontend",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

@@ -18,7 +18,7 @@
 
 
 ### Инструкция по запуску
-1. Клонируйте репозиторий: `git clone https://github.com/Yu-Leo/bmstu-iu5-web-frontend.git`
+1. Клонируйте репозиторий
 2. Перейдите в директорию проекта: `cd app`
 3. Установите зависимости: `npm install`
 4. `npm run generate-pwa-assets`
