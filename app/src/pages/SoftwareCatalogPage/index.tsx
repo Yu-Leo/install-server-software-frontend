@@ -19,7 +19,6 @@ export const SoftwareCatalogPage = () => {
     } = useSoftwareCatalogPage();
 
     return (
-
         <Container className="mb-4">
             <Breadcrumbs
                 endItem="Каталог"

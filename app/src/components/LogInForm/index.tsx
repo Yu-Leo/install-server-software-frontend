@@ -2,9 +2,10 @@ import {FC, useState} from "react";
 import {ILoginFormProps, IUserLoginData} from "./typing.tsx";
 import {ChangeEvent} from "../../App.typing.tsx";
 import {api} from "../../core/api";
-import {useDispatch} from "../../core/store";
+import {store, useDispatch} from "../../core/store";
 import {saveUser} from "../../core/store/slices/userSlice.ts";
 import {useNavigate} from 'react-router-dom';
+import {addNotification} from "../../core/store/slices/appSlice.ts";
 
 export const LogInForm: FC<ILoginFormProps> = () => {
     const navigate = useNavigate();
@@ -26,10 +27,30 @@ export const LogInForm: FC<ILoginFormProps> = () => {
             api.users.usersLoginCreate(loginFormData)
                 .then(() => {
                     dispatch(saveUser({username: loginFormData.username, isAuth: true}))
-                    navigate('/'); // TODO: алерт успеха
+                    store.dispatch(
+                        addNotification({
+                            message: "Добро пожаловать!",
+                            isError: false,
+                        })
+                    );
+                    navigate('/');
                 })
                 .catch((data) => {
-                    console.log("fail", data) // TODO: алерт
+                    if (data.status == 400) {
+                        store.dispatch(
+                            addNotification({
+                                message: "Неверный логин или пароль",
+                                isError: true,
+                            })
+                        );
+                    } else {
+                        store.dispatch(
+                            addNotification({
+                                message: "Ошибка сервера",
+                                isError: true,
+                            })
+                        );
+                    }
                 });
         }
     }
