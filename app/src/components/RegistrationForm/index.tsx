@@ -3,13 +3,14 @@ import {IRegistrationFormProps, IUserSignUpData} from "./typing.tsx";
 import {ChangeEvent} from "../../App.typing.tsx";
 import {api} from "../../core/api";
 import {useNavigate} from "react-router-dom";
+import {store} from "../../core/store";
+import {addNotification} from "../../core/store/slices/appSlice.ts";
 
 export const RegistrationForm: FC<IRegistrationFormProps> = () => {
     const navigate = useNavigate();
 
     const [loginFormData, setLoginFormData] = useState<IUserSignUpData>({
         username: "",
-        email: "",
         password: "",
     });
 
@@ -23,11 +24,30 @@ export const RegistrationForm: FC<IRegistrationFormProps> = () => {
             api.users.usersCreateCreate(loginFormData)
                 .then((data) => {
                     console.log("success", data)
-                    // TODO: алерт успеха
+                    store.dispatch(
+                        addNotification({
+                            message: "Вы успешно зарегистрировались. Войдите",
+                            isError: false,
+                        })
+                    );
                     navigate('/login');
                 })
                 .catch((data) => {
-                    console.log("fail", data) // TODO: алерт фейла
+                    if (data.status == 400) {
+                        store.dispatch(
+                            addNotification({
+                                message: "Пользователь с указанным логином уже существует",
+                                isError: true,
+                            })
+                        );
+                    } else {
+                        store.dispatch(
+                            addNotification({
+                                message: "Ошибка сервера",
+                                isError: true,
+                            })
+                        );
+                    }
                 });
         }
     }
@@ -47,20 +67,6 @@ export const RegistrationForm: FC<IRegistrationFormProps> = () => {
                             className="form-control"
                             placeholder="Введите логин"
                             value={loginFormData.username}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="username" className="form-label">
-                            E-mail
-                        </label>
-                        <input
-                            type="text"
-                            id="email"
-                            className="form-control"
-                            placeholder="Введите e-mail"
-                            value={loginFormData.email}
                             onChange={handleChange}
                             required
                         />
