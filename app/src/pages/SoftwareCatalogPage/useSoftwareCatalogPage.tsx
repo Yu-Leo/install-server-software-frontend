@@ -8,9 +8,10 @@ import {installSoftwareRequest as INSTALL_SOFTWARE_REQUEST_MOCK} from "../../cor
 
 import {ChangeEvent} from "../../App.typing.tsx";
 import {saveSearchSoftwareTitle} from "../../core/store/slices/appSlice.ts";
+import {Software} from "../../core/api/Api.ts";
 
 export const useSoftwareCatalogPage = () => {
-    const [softwareList, setSoftwareList] = useState<object[] | undefined>([]); // TODO: костыльно из-за swagger
+    const [softwareList, setSoftwareList] = useState<Software[]>([]);
     const [installSoftwareRequestId, setInstallSoftwareRequestId] = useState<number>();
     const [itemsInCart, setItemsInCart] = useState<number>(0);
 
@@ -38,7 +39,7 @@ export const useSoftwareCatalogPage = () => {
         api.software.softwareList({software_title: searchSoftwareTitle})
             .then((data) => {
                 setSoftwareList(data.data.software);
-                setInstallSoftwareRequestId(data.data.install_software_request_id)
+                setInstallSoftwareRequestId(data.data.install_software_request_id || 0)
                 setItemsInCart(data.data?.items_in_cart || 0)
             })
             .catch(() => {

@@ -205,6 +205,14 @@ export interface Software {
   logo_file_path?: string;
 }
 
+export interface GetSoftware {
+  software: Software[];
+  /** Install software request id */
+  install_software_request_id?: number | null;
+  /** Items in cart */
+  items_in_cart: number;
+}
+
 export interface SoftwareInRequest {
   /** Request */
   request: number;
@@ -524,14 +532,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<
-        {
-          software?: object[];
-          install_software_request_id?: number;
-          items_in_cart?: number;
-        },
-        void
-      >({
+      this.request<GetSoftware, void>({
         path: `/software`,
         method: "GET",
         query: query,

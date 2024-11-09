@@ -58,11 +58,11 @@ export const SoftwareCatalogPage = () => {
                     row-cols-lg-4 g-4">
                     {softwareList.map((software, index) => {
                         const props: ISoftwareCardProps = {
-                            id: software.pk,
+                            id: software.pk || 0,
                             title: software.title,
                             summary: software.summary,
                             price: software.price,
-                            logoFilePath: software.logo_file_path,
+                            logoFilePath: software.logo_file_path || "",
                         };
 
                         return (
