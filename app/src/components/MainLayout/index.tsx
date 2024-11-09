@@ -1,11 +1,13 @@
 import React from "react";
 import "./MainLayout.css";
-import { Outlet } from "react-router-dom";
+import {Outlet} from "react-router-dom";
+import {Navbar} from "../Navbar";
 
 export const MainLayout: React.FC = () => {
-  return (
-    <div>
-      <Outlet />
-    </div>
-  );
+    return (
+        <div>
+            <Navbar/>
+            <Outlet/>
+        </div>
+    );
 };
