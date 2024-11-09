@@ -213,6 +213,15 @@ export interface GetSoftware {
   items_in_cart: number;
 }
 
+export interface UpdateSoftwareInRequest {
+  /**
+   * Version
+   * @minLength 1
+   * @maxLength 255
+   */
+  version: string;
+}
+
 export interface SoftwareInRequest {
   /** Request */
   request: number;
@@ -671,7 +680,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     softwareInRequestPutUpdate: (
       requestPk: string,
       softwarePk: string,
-      data: SoftwareInRequest,
+      data: UpdateSoftwareInRequest,
       params: RequestParams = {},
     ) =>
       this.request<SoftwareInRequest, void>({

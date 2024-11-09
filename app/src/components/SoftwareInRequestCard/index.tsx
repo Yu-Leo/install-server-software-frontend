@@ -1,11 +1,48 @@
-import {FC} from "react";
+import {FC, useEffect, useState} from "react";
 import {ISoftwareInRequestCardProps} from "./typing.tsx";
 import unknownImage from "/unknown.jpg"
 import {Link} from "react-router-dom";
+import {ChangeEvent} from "../../App.typing.tsx";
+import {api} from "../../core/api";
+import {store} from "../../core/store";
+import {addNotification} from "../../core/store/slices/appSlice.ts";
 
 export const SoftwareInRequestCard: FC<ISoftwareInRequestCardProps> = (software: ISoftwareInRequestCardProps) => {
-    return (
+    const [version, setVersion] = useState<string>("");
 
+    const handleChangeVersion = (e: ChangeEvent) => {
+        setVersion(e.target.value)
+        software.handleUpdateVersion(software.id || 0, e.target.value)
+    };
+
+    useEffect(() => {
+        setVersion(software.version)
+    }, [])
+
+    const handleDeleteClick = () => {
+        api.softwareInRequest.softwareInRequestDeleteDelete(software.isrID, software.id?.toString() || "")
+            .then(() => {
+                    store.dispatch(
+                        addNotification({
+                            message: "ПО удалено из заявки",
+                            isError: false,
+                        })
+                    );
+                    software.handleClickDelete(software?.id || 0)
+                }
+            )
+            .catch(() => {
+                    store.dispatch(
+                        addNotification({
+                            message: "Ошибка удаления ПО из заявки",
+                            isError: true,
+                        })
+                    );
+                }
+            )
+    };
+
+    return (
         <div className="card mb-3">
             <div className="row g-0">
                 <div className="col-md-2 card-body">
@@ -31,16 +68,43 @@ export const SoftwareInRequestCard: FC<ISoftwareInRequestCardProps> = (software:
                 <div className="col-md-2 card-body">
                     <div className="input-group input-group-sm mb-3">
                         <span className="input-group-text" id="inputGroup-sizing-sm">Версия</span>
-                        <input type="text" className="form-control" aria-label="Sizing example input"
-                               aria-describedby="inputGroup-sizing-sm"
-                               value={software.version} readOnly/>
+                        {
+                            software.isEditable ?
+                                <input
+                                    type="text"
+                                    className="input form-control"
+                                    aria-label={software.id?.toString()}
+                                    value={version}
+                                    onChange={handleChangeVersion}
+                                />
+                                :
+                                <input
+                                    type="text"
+                                    className="input form-control"
+                                    aria-label="host"
+                                    value={version}
+                                    readOnly
+                                />
+                        }
                     </div>
                 </div>
                 <div className="col-md-1 card-body">
                     <p className="card-text"><strong>{software.price} руб.</strong></p>
                 </div>
+
+
                 <div className="col-md-1 card-body close-col">
-                    <button type="button" className="btn-close mt-1" aria-label="Close"></button>
+                    {
+                        software.isEditable ?
+                            <button
+                                type="button"
+                                className="btn-close mt-1"
+                                aria-label="Close"
+                                onClick={handleDeleteClick}
+                            ></button>
+                            :
+                            <></>
+                    }
                 </div>
             </div>
         </div>
