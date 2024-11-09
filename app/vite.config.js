@@ -28,7 +28,7 @@ export default defineConfig({
             }
         })
     ],
-    base: "/bmstu-iu5-web-frontend/",
+    base: "/install-server-software-frontend/",
     server: {
         port: 3000,
         proxy: {

@@ -10,7 +10,7 @@ function App() {
     const globalProps = useGlobalProps();
 
     return (
-        <BrowserRouter basename="/bmstu-iu5-web-frontend">
+        <BrowserRouter basename="/install-server-software-frontend">
             <Provider store={store}>
                 <AppRoutes {...globalProps} />
             </Provider>
