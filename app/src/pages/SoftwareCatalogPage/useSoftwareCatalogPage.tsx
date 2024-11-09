@@ -16,16 +16,18 @@ export const useSoftwareCatalogPage = () => {
     const [softwareList, setSoftwareList] = useState<Software[]>([]);
     const [itemsInCart, setItemsInCart] = useState<number>(0);
     const ISRId = useSelector(state => state.user.ISRId); // Подписка на состояние value
-
+    const [isPageActive, setIsPageActive] = useState(false);
     const {searchSoftwareTitle} = useSelector(selectApp);
     const dispatch = useDispatch();
 
     const handleSearchSoftwareClick = () => {
+        setIsPageActive(false)
         api.software.softwareList({software_title: searchSoftwareTitle})
             .then((data) => {
                 setSoftwareList(data.data.software);
                 dispatch(saveISRId(data.data.install_software_request_id || 0))
                 setItemsInCart(data.data?.items_in_cart || 0)
+                setIsPageActive(true)
             })
             .catch(() => {
                 const filteredSoftware = SOFTWARE_LIST_MOCK.filter((software) =>
@@ -34,6 +36,7 @@ export const useSoftwareCatalogPage = () => {
                 setSoftwareList(filteredSoftware);
                 dispatch(saveISRId(1))
                 setItemsInCart(INSTALL_SOFTWARE_REQUEST_MOCK.software_list.length)
+                setIsPageActive(true)
             });
     };
 
@@ -48,6 +51,7 @@ export const useSoftwareCatalogPage = () => {
         ISRId,
         itemsInCart,
         searchSoftwareTitle,
+        isPageActive,
         updateCatalogPageFunc: handleSearchSoftwareClick,
         handleSearchSoftwareClick,
         handleSearchNameChange,

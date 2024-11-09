@@ -7,6 +7,7 @@ import {useSoftwareCatalogPage} from "./useSoftwareCatalogPage.tsx";
 import {ISoftwareCardProps} from "../../components/SoftwareCard/typing.tsx";
 import cartImage from "/cart.png"
 import {Breadcrumbs} from "../../components/Breadcrumbs";
+import {LoadingAnimation} from "../../components/LoadingAnimation";
 
 export const SoftwareCatalogPage = () => {
     const {
@@ -14,6 +15,7 @@ export const SoftwareCatalogPage = () => {
         ISRId,
         itemsInCart,
         searchSoftwareTitle,
+        isPageActive,
         updateCatalogPageFunc,
         handleSearchSoftwareClick,
         handleSearchNameChange,
@@ -54,31 +56,41 @@ export const SoftwareCatalogPage = () => {
                 </Link>
             </div>
 
-            {softwareList && !!softwareList.length ? (
-                <div className="row row-cols-1 row-cols-md-2
+            {
+                isPageActive ?
+                    <>
+                        {softwareList && !!softwareList.length ? (
+                            <div className="row row-cols-1 row-cols-md-2
                     row-cols-lg-4 g-4">
-                    {softwareList.map((software, index) => {
-                        const props: ISoftwareCardProps = {
-                            id: software.pk || 0,
-                            title: software.title,
-                            summary: software.summary,
-                            price: software.price,
-                            logoFilePath: software.logo_file_path || "",
-                            updateCatalogPageFunc: updateCatalogPageFunc,
-                        };
+                                {softwareList.map((software, index) => {
+                                    const props: ISoftwareCardProps = {
+                                        id: software.pk || 0,
+                                        title: software.title,
+                                        summary: software.summary,
+                                        price: software.price,
+                                        logoFilePath: software.logo_file_path || "",
+                                        updateCatalogPageFunc: updateCatalogPageFunc,
+                                    };
 
-                        return (
-                            <div className="col">
-                                <SoftwareCard key={index} {...props} />
+                                    return (
+                                        <div className="col">
+                                            <SoftwareCard key={index} {...props} />
+                                        </div>
+                                    );
+                                })}
                             </div>
-                        );
-                    })}
-                </div>
-            ) : (
-                <Container className="d-flex justify-content-center mt-4 mb-5">
-                    <h2>Ничего не найдено</h2>
-                </Container>
-            )}
+                        ) : (
+                            <Container className="d-flex justify-content-center mt-4 mb-5">
+                                <h2>Ничего не найдено</h2>
+                            </Container>
+                        )}
+                    </>
+                    :
+                    <>
+                        <LoadingAnimation></LoadingAnimation>
+                    </>
+            }
+
         </Container>
     );
 };
