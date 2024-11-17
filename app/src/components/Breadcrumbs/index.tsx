@@ -10,7 +10,7 @@ export const Breadcrumbs: FC<IBreadcrumbs> = (props) => {
     } = props;
 
     return (
-        <nav aria-label="breadcrumb" className="mt-4">
+        <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
                 <li className="breadcrumb-item"><Link to={"/"} className="text-black">Главная</Link></li>
                 {props.middleItems && !!props.middleItems.length ? (
