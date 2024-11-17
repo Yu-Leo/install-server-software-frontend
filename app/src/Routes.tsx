@@ -5,6 +5,8 @@ import {SoftwarePage} from "./pages/SoftwarePage";
 import {InstallSoftwareRequestPage} from "./pages/InstallSoftwareRequestPage";
 import {RegistrationPage} from "./pages/RegistrationPage";
 import {LoginPage} from "./pages/LogInPage";
+import {NotFoundPage} from "./pages/NotFoundPage";
+import {ForbiddenPage} from "./pages/ForbiddenPage";
 import {UserAccountPage} from "./pages/UserAccountPage";
 import {InstallSoftwareRequestsListPage} from "./pages/InstallSoftwareRequestsListPage";
 import {MainLayout} from "./components/MainLayout";
@@ -52,9 +54,16 @@ export const AppRoutes = () => {
                     path: "/user_account",
                     element: <UserAccountPage/>,
                 },
+                {
+                    path: "/forbidden",
+                    element: <ForbiddenPage/>,
+                },
+                {
+                    path: "*",
+                    element: <NotFoundPage/>,
+                },
             ],
         },
-
 
     ];
 
