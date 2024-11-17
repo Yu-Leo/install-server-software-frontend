@@ -9,14 +9,13 @@ import {installSoftwareRequest as INSTALL_SOFTWARE_REQUEST_MOCK} from "../../cor
 import {ChangeEvent} from "../../App.typing.tsx";
 import {saveSearchSoftwareTitle} from "../../core/store/slices/appSlice.ts";
 import {Software} from "../../core/api/Api.ts";
-import {saveISRId} from "../../core/store/slices/userSlice.ts";
 
 
 export const useSoftwareCatalogPage = () => {
     const [softwareList, setSoftwareList] = useState<Software[]>([]);
     const [itemsInCart, setItemsInCart] = useState<number>(0);
-    const ISRId = useSelector(state => state.user.ISRId); // Подписка на состояние value
     const [isPageActive, setIsPageActive] = useState(false);
+    const [ISRId, setISRId] = useState(1);
     const {searchSoftwareTitle} = useSelector(selectApp);
     const dispatch = useDispatch();
 
@@ -25,7 +24,8 @@ export const useSoftwareCatalogPage = () => {
         api.software.softwareList({software_title: searchSoftwareTitle})
             .then((data) => {
                 setSoftwareList(data.data.software);
-                dispatch(saveISRId(data.data.install_software_request_id || 0))
+                // dispatch(saveISRId(data.data.install_software_request_id || 0))
+                setISRId(data.data.install_software_request_id || 0)
                 setItemsInCart(data.data?.items_in_cart || 0)
                 setIsPageActive(true)
             })
@@ -34,7 +34,7 @@ export const useSoftwareCatalogPage = () => {
                     software.title.toLowerCase().startsWith(searchSoftwareTitle.toLowerCase())
                 );
                 setSoftwareList(filteredSoftware);
-                dispatch(saveISRId(1))
+                setISRId(1)
                 setItemsInCart(INSTALL_SOFTWARE_REQUEST_MOCK.software_list.length)
                 setIsPageActive(true)
             });
