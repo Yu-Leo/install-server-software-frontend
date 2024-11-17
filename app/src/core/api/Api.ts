@@ -260,6 +260,14 @@ export interface User {
   password: string;
 }
 
+export interface UserLogin {
+  /**
+   * Staff status
+   * Designates whether the user can log into this admin site.
+   */
+  is_staff?: boolean;
+}
+
 export interface UserUpdate {
   /**
    * Email
@@ -739,12 +747,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<void, void>({
+      this.request<UserLogin, void>({
         path: `/users/login`,
         method: "POST",
         body: data,
         secure: true,
         type: ContentType.UrlEncoded,
+        format: "json",
         ...params,
       }),
 

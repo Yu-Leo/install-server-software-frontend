@@ -26,8 +26,13 @@ export const LogInForm = () => {
     const clickLogIn = () => {
         if (loginFormData.username && loginFormData.password) {
             api.users.usersLoginCreate(loginFormData)
-                .then(() => {
-                    dispatch(saveUser({username: loginFormData.username, isAuth: true}))
+                .then((data) => {
+                    dispatch(saveUser(
+                        {
+                            username: loginFormData.username,
+                            isAuth: true,
+                            isManager: data.data.is_staff || false,
+                        }))
                     localStorage.setItem(USER_NAME, loginFormData.username);
                     store.dispatch(
                         addNotification({
