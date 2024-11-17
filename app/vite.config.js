@@ -28,15 +28,8 @@ export default defineConfig({
             }
         })
     ],
-    base: "/install-server-software-frontend/",
+    base: "",
     server: {
         port: 3000,
-        proxy: {
-            "/api": {
-                target: "http://localhost:8000",
-                changeOrigin: true,
-                rewrite: function (path) { return path.replace(/^\/api/, ""); },
-            },
-        },
     },
 });

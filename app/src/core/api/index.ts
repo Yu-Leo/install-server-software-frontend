@@ -1,6 +1,6 @@
 import { IRequestOptions } from "./typing.ts";
 
-export const BASE_URL = "/api";
+export const BASE_URL = "http://192.168.178.71:8000";
 
 export const sendRequest = async (options: IRequestOptions) => {
     const {
