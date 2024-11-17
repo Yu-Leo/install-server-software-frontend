@@ -2,9 +2,7 @@ import "./Breadcrumbs.css";
 import {FC} from "react";
 import {IBreadcrumbs} from "./typing.tsx";
 import {Link} from "react-router-dom";
-// import {ISoftwareCardProps} from "../SoftwareCard/typing.tsx";
-// import {SoftwareCard} from "../SoftwareCard";
-// import {Container} from "react-bootstrap";
+
 
 export const Breadcrumbs: FC<IBreadcrumbs> = (props) => {
     const {

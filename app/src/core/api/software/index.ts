@@ -1,6 +1,6 @@
 import {sendRequest} from "../index.ts";
 
-import {IGetSoftwareListResponse, IInstallSoftwareRequestByIdResponse, ISoftware} from "./typing.ts";
+import {IGetSoftwareListResponse, ISoftware} from "./typing.ts";
 
 export const getSoftwareList = async (searchTitle?: string) => {
     try {
@@ -25,20 +25,6 @@ export const getSoftwareById = async (id: string) => {
         return response;
     } catch (error) {
         console.error("Error fetching software by id:", error);
-        throw error;
-    }
-};
-
-
-export const getInstallSoftwareRequestById = async (id: string) => {
-    try {
-        const response: IInstallSoftwareRequestByIdResponse = await sendRequest({
-            method: "GET",
-            path: `/install_software_requests/${id}`,
-        });
-        return response;
-    } catch (error) {
-        console.error("Error fetching install software request by id:", error);
         throw error;
     }
 };
