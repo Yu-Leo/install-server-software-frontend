@@ -7,11 +7,10 @@ import {saveUser} from "./core/store/slices/userSlice.ts";
 function App() {
     const dispatch = useDispatch();
     const username = localStorage.getItem(USER_NAME);
-    const isAuth = !!username;
     dispatch(
         saveUser({
             username: username || "",
-            isAuth: isAuth,
+            isManager: false,
         })
     );
 

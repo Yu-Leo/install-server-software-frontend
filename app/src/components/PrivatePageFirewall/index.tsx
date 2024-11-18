@@ -6,10 +6,10 @@ import {selectUser} from "../../core/store/slices/selectors";
 
 export const PrivatePageFirewall: FC<IPrivatePageFirewallProps> = (props) => {
     const {children} = props;
-    const {isAuth} = useSelector(selectUser);
+    const {username} = useSelector(selectUser);
     const location = useLocation();
 
-    if (!isAuth) {
+    if (username == "") {
         return (
             <Navigate
                 to="/forbidden"

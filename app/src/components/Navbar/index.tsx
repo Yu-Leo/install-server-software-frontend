@@ -12,7 +12,8 @@ import {addNotification} from "../../core/store/slices/appSlice.ts";
 import {USER_NAME} from "../../env.tsx";
 
 export const Navbar: FC = () => {
-    const {isAuth, username} = useSelector(selectUser);
+    const {username} = useSelector(selectUser);
+    const isAuth = username != ""
 
     const dispatch = useDispatch();
 

@@ -30,7 +30,6 @@ export const LogInForm = () => {
                     dispatch(saveUser(
                         {
                             username: loginFormData.username,
-                            isAuth: true,
                             isManager: data.data.is_staff || false,
                         }))
                     localStorage.setItem(USER_NAME, loginFormData.username);

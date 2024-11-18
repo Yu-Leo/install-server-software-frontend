@@ -8,7 +8,9 @@ import {api} from "../../core/api";
 import {addNotification} from "../../core/store/slices/appSlice.ts";
 
 export const SoftwareCard: FC<ISoftwareCardProps> = (software: ISoftwareCardProps) => {
-    const {isAuth} = useSelector(selectUser);
+    const {username} = useSelector(selectUser);
+
+    const isAuth = username != ""
 
     const clickAddItem = () => {
         api.software.softwareAddCreate(software.id.toString())
