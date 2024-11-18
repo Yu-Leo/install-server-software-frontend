@@ -9,6 +9,7 @@ import {
 import {useDispatch, useSelector} from "../../core/store";
 import {selectApp} from "../../core/store/slices/selectors.ts";
 import {
+    saveFilterISRAuthor,
     saveFilterISREndDate,
     saveFilterISRStartDate,
     saveFilterISRStatus
@@ -20,11 +21,15 @@ export const useInstallSoftwareRequestsListPage = () => {
         }
     });
 
-    const {filterISRStatus, filterISRStartDate, filterISREndDate} = useSelector(selectApp);
+    const {filterISRAuthor, filterISRStatus, filterISRStartDate, filterISREndDate} = useSelector(selectApp);
     const dispatch = useDispatch();
 
     const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         dispatch(saveFilterISRStatus(event.target.value))
+    };
+
+    const handleAuthorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(saveFilterISRAuthor(event.target.value))
     };
 
     const handleStartDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,17 +48,23 @@ export const useInstallSoftwareRequestsListPage = () => {
                 formation_end: mapStringToOptQueryParam(filterISREndDate),
             })
             .then((data) => {
-                setTableProps(mapBackendResultToTableData(data.data, handleFilterISRClick))
+                setTableProps(
+                    {
+                        rows: filterAndConvertData(data.data, filterISRAuthor),
+                        updateListPageFunc: handleFilterISRClick,
+                    })
             })
             .catch(() => {
                 setTableProps(
-                    mapBackendResultToTableData(
-                        filterDataOnFront(INSTALL_SOFTWARE_REQUESTS_LIST_MOCK,
-                            mapStringToOptQueryParam(filterISRStatus),
-                            mapStringToOptQueryParam(filterISRStartDate),
-                            mapStringToOptQueryParam(filterISREndDate)),
-                        handleFilterISRClick,
-                    )
+                    {
+                        rows: filterAndConvertData(
+                            filterDataOnFront(INSTALL_SOFTWARE_REQUESTS_LIST_MOCK,
+                                mapStringToOptQueryParam(filterISRStatus),
+                                mapStringToOptQueryParam(filterISRStartDate),
+                                mapStringToOptQueryParam(filterISREndDate),
+                            ), filterISRAuthor),
+                        updateListPageFunc: handleFilterISRClick,
+                    }
                 );
             })
     };
@@ -66,7 +77,8 @@ export const useInstallSoftwareRequestsListPage = () => {
         selectedStatus: filterISRStatus,
         selectedStartDate: filterISRStartDate,
         selectedEndDate: filterISREndDate,
-
+        selectedAuthor: filterISRAuthor,
+        handleAuthorChange: handleAuthorChange,
         handleStatusChange: handleStatusChange,
         handleStartDateChange: handleStartDateChange,
         handleEndDateChange: handleEndDateChange,
@@ -110,8 +122,12 @@ function convertDatetimeToDDMMYYYY(dateString: string | null | undefined): strin
     return `${day}.${month}.${year}`;
 }
 
-export function mapBackendResultToTableData(requests: InstallSoftwareRequest[], handleFilterISRClick: () => void): IISRTableProps {
-    const rows: IISRTableRow[] = requests.map((request) => {
+export function filterAndConvertData(requests: InstallSoftwareRequest[], clientFilter: string | undefined): IISRTableRow[] {
+    const filteredRequests = clientFilter
+        ? requests.filter((request) => request.client === clientFilter)
+        : requests;
+
+    return filteredRequests.map((request) => {
         return {
             number: request.pk || 0,
             client: request.client || "",
@@ -121,11 +137,6 @@ export function mapBackendResultToTableData(requests: InstallSoftwareRequest[], 
             completionDate: convertDatetimeToDDMMYYYY(request.completion_datetime),
         };
     });
-
-    return {
-        rows: rows,
-        updateListPageFunc: handleFilterISRClick,
-    };
 }
 
 export function filterDataOnFront(

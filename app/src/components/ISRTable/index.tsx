@@ -25,7 +25,8 @@ export const ISRTable: FC<IISRTableProps> = (tableProps: IISRTableProps) => {
                                 </Col>
                             </> :
                             <>
-                            </>}
+                            </>
+                        }
                         <Col>
                             <Card.Text><strong>Статус</strong></Card.Text>
                         </Col>
