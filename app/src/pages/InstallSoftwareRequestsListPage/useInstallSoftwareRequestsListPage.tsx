@@ -15,7 +15,10 @@ import {
 } from "../../core/store/slices/appSlice.ts";
 
 export const useInstallSoftwareRequestsListPage = () => {
-    const [tableProps, setTableProps] = useState<IISRTableProps>({rows: []});
+    const [tableProps, setTableProps] = useState<IISRTableProps>({
+        rows: [], updateListPageFunc: () => {
+        }
+    });
 
     const {filterISRStatus, filterISRStartDate, filterISREndDate} = useSelector(selectApp);
     const dispatch = useDispatch();
@@ -40,7 +43,7 @@ export const useInstallSoftwareRequestsListPage = () => {
                 formation_end: mapStringToOptQueryParam(filterISREndDate),
             })
             .then((data) => {
-                setTableProps(mapBackendResultToTableData(data.data))
+                setTableProps(mapBackendResultToTableData(data.data, handleFilterISRClick))
             })
             .catch(() => {
                 setTableProps(
@@ -48,7 +51,8 @@ export const useInstallSoftwareRequestsListPage = () => {
                         filterDataOnFront(INSTALL_SOFTWARE_REQUESTS_LIST_MOCK,
                             mapStringToOptQueryParam(filterISRStatus),
                             mapStringToOptQueryParam(filterISRStartDate),
-                            mapStringToOptQueryParam(filterISREndDate))
+                            mapStringToOptQueryParam(filterISREndDate)),
+                        handleFilterISRClick,
                     )
                 );
             })
@@ -106,10 +110,11 @@ function convertDatetimeToDDMMYYYY(dateString: string | null | undefined): strin
     return `${day}.${month}.${year}`;
 }
 
-export function mapBackendResultToTableData(requests: InstallSoftwareRequest[]): IISRTableProps {
+export function mapBackendResultToTableData(requests: InstallSoftwareRequest[], handleFilterISRClick: () => void): IISRTableProps {
     const rows: IISRTableRow[] = requests.map((request) => {
         return {
             number: request.pk || 0,
+            client: request.client || "",
             status: mapStatusToTable(request.status),
             creationDate: convertDatetimeToDDMMYYYY(request.creation_datetime),
             registrationDate: convertDatetimeToDDMMYYYY(request.formation_datetime),
@@ -117,7 +122,10 @@ export function mapBackendResultToTableData(requests: InstallSoftwareRequest[]):
         };
     });
 
-    return {rows};
+    return {
+        rows: rows,
+        updateListPageFunc: handleFilterISRClick,
+    };
 }
 
 export function filterDataOnFront(

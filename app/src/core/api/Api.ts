@@ -158,6 +158,39 @@ export interface PutInstallSoftwareRequest {
   status?: "DRAFT" | "DELETED" | "FORMED" | "COMPLETED" | "REJECTED";
 }
 
+export interface ResolveInstallSoftwareRequest {
+  /** ID */
+  pk?: number;
+  /**
+   * Creation datetime
+   * @format date-time
+   */
+  creation_datetime?: string;
+  /**
+   * Formation datetime
+   * @format date-time
+   */
+  formation_datetime?: string | null;
+  /**
+   * Completion datetime
+   * @format date-time
+   */
+  completion_datetime?: string | null;
+  /**
+   * Host
+   * @minLength 1
+   */
+  host?: string;
+  /** Client */
+  client?: number;
+  /** Manager */
+  manager?: number | null;
+  /** Total installing time in min */
+  total_installing_time_in_min?: number | null;
+  /** Status */
+  status?: "DRAFT" | "DELETED" | "FORMED" | "COMPLETED" | "REJECTED";
+}
+
 export interface Software {
   /** ID */
   pk?: number;
@@ -534,11 +567,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request PUT:/install_software_requests/{id}/resolve
      * @secure
      */
-    installSoftwareRequestsResolveUpdate: (id: string, params: RequestParams = {}) =>
+    installSoftwareRequestsResolveUpdate: (
+      id: string,
+      data: ResolveInstallSoftwareRequest,
+      params: RequestParams = {},
+    ) =>
       this.request<InstallSoftwareRequest, void>({
         path: `/install_software_requests/${id}/resolve`,
         method: "PUT",
+        body: data,
         secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),

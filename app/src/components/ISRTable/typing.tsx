@@ -1,5 +1,6 @@
 export interface IISRTableProps {
     rows: IISRTableRow[];
+    updateListPageFunc: () => void;
 }
 
 export interface IISRTableRow {
@@ -8,4 +9,5 @@ export interface IISRTableRow {
     creationDate: string;
     registrationDate: string;
     completionDate: string;
+    client: string;
 }
