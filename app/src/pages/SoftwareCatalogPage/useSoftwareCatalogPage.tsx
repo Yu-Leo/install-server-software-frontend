@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {selectApp} from "../../core/store/slices/selectors";
+import {selectApp, selectUser} from "../../core/store/slices/selectors";
 import {useDispatch, useSelector} from "../../core/store";
 import {api} from "../../core/api";
 
@@ -17,6 +17,7 @@ export const useSoftwareCatalogPage = () => {
     const [isPageActive, setIsPageActive] = useState(false);
     const [ISRId, setISRId] = useState(1);
     const {searchSoftwareTitle} = useSelector(selectApp);
+    const {isManager} = useSelector(selectUser);
     const dispatch = useDispatch();
 
     const handleSearchSoftwareClick = () => {
@@ -54,6 +55,7 @@ export const useSoftwareCatalogPage = () => {
         itemsInCart,
         searchSoftwareTitle,
         isPageActive,
+        isManager,
         updateCatalogPageFunc: handleSearchSoftwareClick,
         handleSearchSoftwareClick,
         handleSearchNameChange,

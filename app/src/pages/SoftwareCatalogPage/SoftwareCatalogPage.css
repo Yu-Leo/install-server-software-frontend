@@ -43,3 +43,7 @@
 .cart-button {
     min-width: 65px;
 }
+
+.white-bg {
+    background-color: #fff;
+}

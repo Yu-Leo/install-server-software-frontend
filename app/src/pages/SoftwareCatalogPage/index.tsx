@@ -8,6 +8,7 @@ import {ISoftwareCardProps} from "../../components/SoftwareCard/typing.tsx";
 import cartImage from "/cart.png"
 import {Breadcrumbs} from "../../components/Breadcrumbs";
 import {LoadingAnimation} from "../../components/LoadingAnimation";
+import {SoftwareManagerCard} from "../../components/SoftwareManagerCard";
 
 export const SoftwareCatalogPage = () => {
     const {
@@ -16,10 +17,12 @@ export const SoftwareCatalogPage = () => {
         itemsInCart,
         searchSoftwareTitle,
         isPageActive,
+        isManager,
         updateCatalogPageFunc,
         handleSearchSoftwareClick,
         handleSearchNameChange,
     } = useSoftwareCatalogPage();
+
 
     return (
         <Container className="mb-4">
@@ -59,26 +62,45 @@ export const SoftwareCatalogPage = () => {
             {
                 isPageActive ?
                     <>
-                        {softwareList && !!softwareList.length ? (
-                            <div className="row row-cols-1 row-cols-md-2
-                    row-cols-lg-4 g-4">
-                                {softwareList.map((software, index) => {
-                                    const props: ISoftwareCardProps = {
-                                        id: software.pk || 0,
-                                        title: software.title,
-                                        summary: software.summary,
-                                        price: software.price,
-                                        logoFilePath: software.logo_file_path || "",
-                                        updateCatalogPageFunc: updateCatalogPageFunc,
-                                    };
 
-                                    return (
-                                        <div className="col">
-                                            <SoftwareCard key={index} {...props} />
-                                        </div>
-                                    );
-                                })}
-                            </div>
+                        {softwareList && !!softwareList.length ? (
+                            isManager ?
+                                <div>
+                                    {softwareList.map((software, index) => {
+                                        const props: ISoftwareCardProps = {
+                                            id: software.pk || 0,
+                                            title: software.title,
+                                            summary: software.summary,
+                                            price: software.price,
+                                            logoFilePath: software.logo_file_path || "",
+                                            updateCatalogPageFunc: updateCatalogPageFunc,
+                                        };
+
+                                        return (
+                                            <SoftwareManagerCard key={index} {...props} />
+                                        );
+                                    })}
+                                </div>
+                                :
+                                <div className="row row-cols-1 row-cols-md-2
+                    row-cols-lg-4 g-4">
+                                    {softwareList.map((software, index) => {
+                                        const props: ISoftwareCardProps = {
+                                            id: software.pk || 0,
+                                            title: software.title,
+                                            summary: software.summary,
+                                            price: software.price,
+                                            logoFilePath: software.logo_file_path || "",
+                                            updateCatalogPageFunc: updateCatalogPageFunc,
+                                        };
+
+                                        return (
+                                            <div className="col">
+                                                <SoftwareCard key={index} {...props} />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                         ) : (
                             <Container className="d-flex justify-content-center mt-4 mb-5">
                                 <h2>Ничего не найдено</h2>
@@ -90,7 +112,19 @@ export const SoftwareCatalogPage = () => {
                         <LoadingAnimation></LoadingAnimation>
                     </>
             }
-
+            {
+                isManager ?
+                    <div className="d-flex justify-content-end">
+                        <Link
+                            to={"/edit_software/"}
+                            className="btn dark-blue-btn"
+                        >
+                            Добавить ПО
+                        </Link>
+                    </div>
+                    :
+                    <></>
+            }
         </Container>
     );
 };
