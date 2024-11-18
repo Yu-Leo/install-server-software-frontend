@@ -112,7 +112,7 @@ export const ISRTableItem: FC<IISRTableItemProps> = (isr: IISRTableItemProps) =>
                                     className="dark-blue-btn"
                                     disabled={isr.status != "В работе"}
                                 >
-                                    Согласовать
+                                    Завершить
                                 </Button>
                             </Col>
                             <Col>

@@ -43,7 +43,7 @@ export const ISRTable: FC<IISRTableProps> = (tableProps: IISRTableProps) => {
                         {isManager ?
                             <>
                                 <Col>
-                                    <Card.Text><strong>Согласовать</strong></Card.Text>
+                                    <Card.Text><strong>Завершить</strong></Card.Text>
                                 </Col>
                                 <Col>
                                     <Card.Text><strong>Отклонить</strong></Card.Text>
