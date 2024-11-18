@@ -58,7 +58,7 @@ export const useInstallSoftwareRequestsListPage = () => {
                 setTableProps(
                     {
                         rows: filterAndConvertData(
-                            filterDataOnFront(INSTALL_SOFTWARE_REQUESTS_LIST_MOCK,
+                            filterMockData(INSTALL_SOFTWARE_REQUESTS_LIST_MOCK,
                                 mapStringToOptQueryParam(filterISRStatus),
                                 mapStringToOptQueryParam(filterISRStartDate),
                                 mapStringToOptQueryParam(filterISREndDate),
@@ -139,7 +139,7 @@ export function filterAndConvertData(requests: InstallSoftwareRequest[], clientF
     });
 }
 
-export function filterDataOnFront(
+export function filterMockData(
     installSoftwareRequestsList: InstallSoftwareRequest[],
     filterStatus?: string,
     filterStartDate?: string,
