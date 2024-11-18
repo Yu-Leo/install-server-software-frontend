@@ -69,6 +69,11 @@ export const useInstallSoftwareRequestsListPage = () => {
             })
     };
 
+    useEffect(() => {
+        let id = setTimeout(handleFilterISRClick, 2000);
+        return () => clearTimeout(id);
+    });
+
     useEffect(handleFilterISRClick,
         // eslint-disable-next-line react-hooks/exhaustive-deps
         []);
