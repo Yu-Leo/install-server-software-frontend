@@ -666,12 +666,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/software/{id}/add_image
      * @secure
      */
-    softwareAddImageCreate: (id: string, data: File, params: RequestParams = {}) =>
+    softwareAddImageCreate: (
+      id: string,
+      data: {
+        /**
+         * Изображение для загрузки
+         * @format binary
+         */
+        image: File;
+      },
+      params: RequestParams = {},
+    ) =>
       this.request<void, void>({
         path: `/software/${id}/add_image`,
         method: "POST",
         body: data,
         secure: true,
+        type: ContentType.FormData,
         ...params,
       }),
 

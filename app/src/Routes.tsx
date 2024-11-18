@@ -11,6 +11,8 @@ import {UserAccountPage} from "./pages/UserAccountPage";
 import {InstallSoftwareRequestsListPage} from "./pages/InstallSoftwareRequestsListPage";
 import {MainLayout} from "./components/MainLayout";
 import {PrivatePageFirewall} from "./components/PrivatePageFirewall";
+import {ManagerPageFirewall} from "./components/ManagerPageFirewall";
+import {SoftwareEditPage} from "./pages/SoftwareEditPage";
 
 export const AppRoutes = () => {
     const routes: RouteObject[] = [
@@ -28,6 +30,15 @@ export const AppRoutes = () => {
                             path: "/install_software_requests_list",
                             element: <InstallSoftwareRequestsListPage/>,
                         },
+                        {
+                            element: <ManagerPageFirewall/>,
+                            children: [
+                                {
+                                    path: "/edit_software/:id",
+                                    element: <SoftwareEditPage/>,
+                                },
+                            ],
+                        }
                     ],
                 },
                 {
