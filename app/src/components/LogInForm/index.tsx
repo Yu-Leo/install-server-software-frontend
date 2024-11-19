@@ -6,7 +6,6 @@ import {store, useDispatch} from "../../core/store";
 import {saveUser} from "../../core/store/slices/userSlice.ts";
 import {useNavigate} from 'react-router-dom';
 import {addNotification} from "../../core/store/slices/appSlice.ts";
-import {IS_MANAGER, USER_NAME} from "../../env.tsx";
 
 export const LogInForm = () => {
     const navigate = useNavigate();
@@ -32,8 +31,6 @@ export const LogInForm = () => {
                             username: loginFormData.username,
                             isManager: data.data.is_staff || false,
                         }))
-                    localStorage.setItem(USER_NAME, loginFormData.username);
-                    localStorage.setItem(IS_MANAGER, (data.data.is_staff || false).toString());
                     store.dispatch(
                         addNotification({
                             message: "Добро пожаловать!",
