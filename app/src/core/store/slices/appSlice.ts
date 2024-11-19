@@ -9,6 +9,7 @@ export interface INotification {
 
 export interface IAppData {
     searchSoftwareTitle: string;
+    searchInListSoftwareTitle: string;
     filterISRAuthor?: string;
     filterISRStatus?: string;
     filterISRStartDate?: string;
@@ -18,6 +19,7 @@ export interface IAppData {
 
 const initialState: IAppData = {
     searchSoftwareTitle: "",
+    searchInListSoftwareTitle: "",
     filterISRAuthor: undefined,
     filterISRStatus: undefined,
     filterISRStartDate: undefined,
@@ -37,6 +39,9 @@ export const appSlice = createSlice({
         },
         saveSearchSoftwareTitle: (state, action: PayloadAction<string>) => {
             state.searchSoftwareTitle = action.payload;
+        },
+        saveSearchInListSoftwareTitle: (state, action: PayloadAction<string>) => {
+            state.searchInListSoftwareTitle = action.payload;
         },
         saveFilterISRAuthor: (state, action: PayloadAction<string>) => {
             state.filterISRAuthor = action.payload;
@@ -71,6 +76,7 @@ export const appSlice = createSlice({
 export const {
     refreshApp,
     saveSearchSoftwareTitle,
+    saveSearchInListSoftwareTitle,
     saveFilterISRAuthor,
     saveFilterISRStatus,
     saveFilterISRStartDate,

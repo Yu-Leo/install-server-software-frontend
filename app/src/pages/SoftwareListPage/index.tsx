@@ -1,25 +1,22 @@
-import "./SoftwareCatalogPage.css";
+import "./SoftwareListPage.css";
 import {Link} from "react-router-dom";
 
 import {Button, Container} from "react-bootstrap";
-import {SoftwareCard} from "../../components/SoftwareCard";
-import {useSoftwareCatalogPage} from "./useSoftwareCatalogPage.tsx";
+import {useSoftwareListPage} from "./useSoftwareListPage.tsx";
 import {ISoftwareCardProps} from "../../components/SoftwareCard/typing.tsx";
-import cartImage from "/cart.png"
 import {Breadcrumbs} from "../../components/Breadcrumbs";
 import {LoadingAnimation} from "../../components/LoadingAnimation";
+import {SoftwareManagerCard} from "../../components/SoftwareManagerCard";
 
-export const SoftwareCatalogPage = () => {
+export const SoftwareListPage = () => {
     const {
         softwareList,
-        ISRId,
-        itemsInCart,
-        searchSoftwareTitle,
+        searchInListSoftwareTitle,
         isPageActive,
         updateCatalogPageFunc,
         handleSearchSoftwareClick,
         handleSearchNameChange,
-    } = useSoftwareCatalogPage();
+    } = useSoftwareListPage();
 
 
     return (
@@ -35,7 +32,7 @@ export const SoftwareCatalogPage = () => {
                         onChange={handleSearchNameChange}
                         placeholder="Поиск"
                         aria-label="Поиск"
-                        value={searchSoftwareTitle}
+                        value={searchInListSoftwareTitle}
                     />
                 </div>
                 <div className="px-3">
@@ -46,15 +43,6 @@ export const SoftwareCatalogPage = () => {
                         Поиск
                     </Button>
                 </div>
-
-                <Link
-                    to={"/install_software_request/" + ISRId}
-                    className={ISRId !== undefined && ISRId !== null && ISRId !== 0 ? "btn dark-blue-border cart-button" : "btn cart-button non-clickable"}
-                    state={{from: ISRId}}
-                >
-                    {itemsInCart}
-                    <img src={cartImage} width="25" alt="cart"/>
-                </Link>
             </div>
 
             {
@@ -62,8 +50,7 @@ export const SoftwareCatalogPage = () => {
                     <>
 
                         {softwareList && !!softwareList.length ? (
-                            <div className="row row-cols-1 row-cols-md-2
-                    row-cols-lg-4 g-4">
+                            <div>
                                 {softwareList.map((software, index) => {
                                     const props: ISoftwareCardProps = {
                                         id: software.pk || 0,
@@ -75,9 +62,7 @@ export const SoftwareCatalogPage = () => {
                                     };
 
                                     return (
-                                        <div className="col">
-                                            <SoftwareCard key={index} {...props} />
-                                        </div>
+                                        <SoftwareManagerCard key={index} {...props} />
                                     );
                                 })}
                             </div>
@@ -92,6 +77,15 @@ export const SoftwareCatalogPage = () => {
                         <LoadingAnimation></LoadingAnimation>
                     </>
             }
+
+            <div className="d-flex justify-content-end">
+                <Link
+                    to={"/add_software/"}
+                    className="btn dark-blue-btn"
+                >
+                    Добавить ПО
+                </Link>
+            </div>
         </Container>
     );
 };

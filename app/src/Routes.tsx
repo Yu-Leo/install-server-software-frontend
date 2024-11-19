@@ -13,6 +13,7 @@ import {MainLayout} from "./components/MainLayout";
 import {PrivatePageFirewall} from "./components/PrivatePageFirewall";
 import {ManagerPageFirewall} from "./components/ManagerPageFirewall";
 import {SoftwareEditPage} from "./pages/SoftwareEditPage";
+import {SoftwareListPage} from "./pages/SoftwareListPage";
 
 export const AppRoutes = () => {
     const routes: RouteObject[] = [
@@ -40,6 +41,10 @@ export const AppRoutes = () => {
                                 {
                                     path: "/add_software",
                                     element: <SoftwareEditPage/>,
+                                },
+                                {
+                                    path: "/software_list",
+                                    element: <SoftwareListPage/>,
                                 },
                             ],
                         }

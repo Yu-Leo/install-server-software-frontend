@@ -13,7 +13,7 @@ import {addNotification} from "../../core/store/slices/appSlice.ts";
 export const Navbar: FC = () => {
     const {username} = useSelector(selectUser);
     const isAuth = username != ""
-
+    const {isManager} = useSelector(selectUser);
     const dispatch = useDispatch();
 
     const logout = () => {
@@ -58,6 +58,16 @@ export const Navbar: FC = () => {
                                 <NavLink to="/install_software_requests_list"
                                          className="text-white text-decoration-none">
                                     Заявки
+                                </NavLink>
+                            </Nav>
+                        ) : (
+                            <></>
+                        )}
+                        {isManager ? (
+                            <Nav className="me-3">
+                                <NavLink to="/software_list"
+                                         className="text-white text-decoration-none">
+                                    Список ПО
                                 </NavLink>
                             </Nav>
                         ) : (
