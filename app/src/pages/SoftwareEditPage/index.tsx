@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {Button, Col, Form, Row} from "react-bootstrap";
 
-import {softwareList as SOFTWARE_LIST_MOCK} from "../../core/mock/softwareList.ts";
 import {Software} from "../../core/api/Api.ts";
 import {api} from "../../core/api";
 import {store} from "../../core/store";
@@ -24,7 +23,6 @@ export const SoftwareEditPage = () => {
         size_in_bytes: 0,
         summary: '',
         description: '',
-        is_active: true,
         logo_file_path: ''
     });
 
@@ -61,12 +59,6 @@ export const SoftwareEditPage = () => {
         });
     };
 
-    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSoftware({
-            ...software,
-            'is_active': event.target.checked
-        });
-    };
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
         setLogoFile(file);
@@ -182,16 +174,6 @@ export const SoftwareEditPage = () => {
                             type="file"
                             onChange={handleFileChange}
                             accept="image/*"
-                        />
-                    </Form.Group>
-
-                    <Form.Group controlId="formIsActive" className="mb-3">
-                        <Form.Check
-                            type="checkbox"
-                            label="ПО доступно для установки"
-                            name="is_active"
-                            checked={software.is_active || false}
-                            onChange={handleCheckboxChange}
                         />
                     </Form.Group>
                 </Col>
