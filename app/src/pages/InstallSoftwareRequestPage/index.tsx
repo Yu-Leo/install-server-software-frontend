@@ -18,7 +18,7 @@ function calculateTotalPrice(softwareItems?: (Related | undefined)[]): number {
 
 export const InstallSoftwareRequestPage = () => {
         const {
-            installSoftwareRequestContentData,
+            ISRContentData,
             isEditable,
             host,
             id,
@@ -31,15 +31,31 @@ export const InstallSoftwareRequestPage = () => {
 
         return (
             <Container className="mb-4">
-                <Breadcrumbs
-                    middleItems={[
-                        {
-                            name: "Каталог",
-                            link: "/software_catalog"
-                        }
-                    ]}
-                    endItem={"Заказ на установку ПО № " + installSoftwareRequestContentData?.pk}
-                />
+                {
+                    isEditable ? (
+                            <Breadcrumbs
+                                middleItems={[
+                                    {
+                                        name: "Каталог",
+                                        link: "/software_catalog"
+                                    }
+                                ]}
+                                endItem={"Заказ на установку ПО № " + ISRContentData?.pk}
+                            />
+                        )
+                        :
+                        (
+                            <Breadcrumbs
+                                middleItems={[
+                                    {
+                                        name: "Заявки",
+                                        link: "/install_software_requests_list"
+                                    }
+                                ]}
+                                endItem={"Заказ на установку ПО № " + ISRContentData?.pk}
+                            />)
+                }
+
                 <div className="card card-body mb-3 mt-4 row g-0">
                     <div className="row g-0">
                         <div className="col-md-2">
@@ -68,9 +84,9 @@ export const InstallSoftwareRequestPage = () => {
                     </div>
                 </div>
 
-                {installSoftwareRequestContentData?.software_list && !!installSoftwareRequestContentData.software_list.length ? (
+                {ISRContentData?.software_list && !!ISRContentData.software_list.length ? (
                     <>
-                        {installSoftwareRequestContentData.software_list.map((software: Related, index: number) => {
+                        {ISRContentData.software_list.map((software: Related, index: number) => {
                             const props: ISoftwareInRequestCardProps = {
                                 id: software.software.pk,
                                 title: software.software.title,
@@ -96,17 +112,41 @@ export const InstallSoftwareRequestPage = () => {
                         <div className="col-md-10">
                             <div className="card-body">
                                 <h5 className="card-title">
-                                    ИТОГО:
+                                    Итого:
                                 </h5>
                             </div>
                         </div>
                         <div className="col-md-2">
                             <div className="card-body">
-                                <strong>{calculateTotalPrice(installSoftwareRequestContentData?.software_list)} руб.</strong>
+                                <strong>{calculateTotalPrice(ISRContentData?.software_list)} руб.</strong>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {
+                    ISRContentData?.total_installing_time_in_min != null ? (
+                        <div className="card mb-3">
+                            <div className="row g-0">
+                                <div className="col-md-10">
+                                    <div className="card-body">
+                                        <h5 className="card-title">
+                                            Суммарное время установки:
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div className="col-md-2">
+                                    <div className="card-body">
+                                        <strong>{ISRContentData.total_installing_time_in_min} мин.</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <>
+                        </>
+                    )
+                }
                 {
                     isEditable ?
                         <div className="d-flex justify-content-end">

@@ -11,7 +11,7 @@ import axios from "axios";
 
 
 export const useInstallSoftwareRequestPage = () => {
-    const [installSoftwareRequestContentData, setInstallSoftwareRequestContentData] = useState<FullInstallSoftwareRequest>();
+    const [ISRContentData, setISRContentData] = useState<FullInstallSoftwareRequest>();
     const [isEditable, setIsEditable] = useState<boolean>(true);
     const [host, setHost] = useState<string>("");
     const [versions, setVersions] = useState<{ [key: number]: string }>({});
@@ -38,7 +38,7 @@ export const useInstallSoftwareRequestPage = () => {
         if (id) {
             api.installSoftwareRequests.installSoftwareRequestsRead(id)
                 .then((data) => {
-                    setInstallSoftwareRequestContentData(data.data);
+                    setISRContentData(data.data);
                     if (data.data?.status != "DRAFT") {
                         setIsEditable(false);
                     }
@@ -48,7 +48,7 @@ export const useInstallSoftwareRequestPage = () => {
                     })
                 })
                 .catch(() => {
-                    setInstallSoftwareRequestContentData(INSTALL_SOFTWARE_REQUEST_MOCK)
+                    setISRContentData(INSTALL_SOFTWARE_REQUEST_MOCK)
                 });
         }
     }
@@ -168,7 +168,7 @@ export const useInstallSoftwareRequestPage = () => {
     }
 
     return {
-        installSoftwareRequestContentData,
+        ISRContentData,
         isEditable,
         host,
         id,
