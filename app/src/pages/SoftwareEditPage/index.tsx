@@ -179,14 +179,12 @@ export const SoftwareEditPage = () => {
                 </Col>
 
                 <Col md={6} className="">
-                    {software.logo_file_path && (
-                        <img
-                            src={software.logo_file_path ? (software.logo_file_path) : (unknownImage)}
-                            alt="Logo"
-                            className="img-fluid p-2"
-                            style={{maxWidth: '300px', maxHeight: '300px', objectFit: 'contain'}}
-                        />
-                    )}
+                    <img
+                        src={software.logo_file_path ? (software.logo_file_path) : (unknownImage)}
+                        alt="Logo"
+                        className="img-fluid p-2"
+                        style={{maxWidth: '300px', maxHeight: '300px', objectFit: 'contain'}}
+                    />
                 </Col>
             </Row>
             <Row>
