@@ -37,6 +37,10 @@ export const AppRoutes = () => {
                                     path: "/edit_software/:id",
                                     element: <SoftwareEditPage/>,
                                 },
+                                {
+                                    path: "/add_software",
+                                    element: <SoftwareEditPage/>,
+                                },
                             ],
                         }
                     ],

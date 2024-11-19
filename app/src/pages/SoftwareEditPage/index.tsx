@@ -8,13 +8,14 @@ import {api} from "../../core/api";
 import {store} from "../../core/store";
 import {addNotification} from "../../core/store/slices/appSlice.ts";
 import unknownImage from "/unknown.jpg"
+import axios from "axios";
 
 
 export const SoftwareEditPage = () => {
     const navigate = useNavigate();
-
     const {id} = useParams();
     const [logoFile, setLogoFile] = useState<File | null>(null);
+    const [isEdit, setIsEdit] = useState<boolean>(false);
 
     const [software, setSoftware] = useState<Software>({
         title: '',
@@ -40,17 +41,10 @@ export const SoftwareEditPage = () => {
                         })
                     );
                 });
+            setIsEdit(true);
         }
     }, [id]);
 
-    if (!software || !software.title) {
-        return (
-            <>
-            </>
-        );
-    }
-
-    // Функция для обработки изменений в input полях
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
         setSoftware({
@@ -64,51 +58,110 @@ export const SoftwareEditPage = () => {
         setLogoFile(file);
     };
 
+    const createSoftware = async () => {
+        try {
+            const data = await api.software.softwarePostCreate(software)
+            if (logoFile != null) {
+                api.software.softwareAddImageCreate(data.data.pk?.toString() || "", {image: logoFile})
+                    .then(() => {
+                        store.dispatch(
+                            addNotification({
+                                message: "ПО успешно добавлено",
+                                isError: false,
+                            })
+                        );
+                        navigate('/software/' + data.data.pk?.toString() || "");
+                    })
+                    .catch(() => {
+                            store.dispatch(
+                                addNotification({
+                                    message: "Ошибка загрузки файла",
+                                    isError: true,
+                                })
+                            );
+                        }
+                    )
+            } else {
+                store.dispatch(
+                    addNotification({
+                        message: "ПО успешно добавлено",
+                        isError: false,
+                    })
+                );
+                navigate('/software/' + data.data.pk?.toString() || "");
+            }
+            return
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response?.status == 400) {
+                store.dispatch(
+                    addNotification({
+                        message: "Заполнены не все обязательные поля",
+                        isError: true,
+                    })
+                );
+            } else {
+                store.dispatch(
+                    addNotification({
+                        message: "Ошибка сервера",
+                        isError: true,
+                    })
+                );
+            }
+            return
+        }
+    }
+
     const handleSubmit = () => {
-        if (logoFile != null) {
-            console.log(logoFile)
-            api.software.softwareAddImageCreate(software.pk?.toString() || "", {image: logoFile})
+        if (isEdit) {
+            api.software.softwarePutUpdate(software.pk?.toString() || "", software)
                 .then(() => {
+                    store.dispatch(
+                        addNotification({
+                            message: "Данные ПО обновлены",
+                            isError: false,
+                        })
+                    );
+                    navigate('/software/' + software.pk?.toString() || "");
                 })
                 .catch(() => {
                         store.dispatch(
                             addNotification({
-                                message: "Ошибка загрузки файла",
+                                message: "Ошибка обновления данных ПО",
                                 isError: true,
                             })
                         );
                     }
                 )
-        }
-
-        api.software.softwarePutUpdate(software.pk?.toString() || "", software)
-            .then(() => {
-                store.dispatch(
-                    addNotification({
-                        message: "Данные ПО обновлены",
-                        isError: false,
+            if (logoFile != null) {
+                api.software.softwareAddImageCreate(software.pk?.toString() || "", {image: logoFile})
+                    .then(() => {
                     })
-                );
-                navigate('/software/' + software.pk?.toString() || "");
+                    .catch(() => {
+                            store.dispatch(
+                                addNotification({
+                                    message: "Ошибка загрузки файла",
+                                    isError: true,
+                                })
+                            );
+                        }
+                    )
+            }
+            return
+        }
+        createSoftware()
+            .then(() => {
             })
             .catch(() => {
-                    store.dispatch(
-                        addNotification({
-                            message: "Ошибка обновления данных ПО",
-                            isError: true,
-                        })
-                    );
-                }
-            )
+            })
     };
 
     return (
         <div className="container">
-            <h2 className="mb-3">Редактирование ПО</h2>
+            <h2 className="mb-3">{isEdit ? "Редактирование ПО" : "Добавление ПО"}</h2>
             <Row>
                 <Col md={6}>
                     <Form.Group controlId="formTitle" className="mb-3">
-                        <Form.Label>Название</Form.Label>
+                        <Form.Label>Название <sup className="text-danger">*</sup></Form.Label>
                         <Form.Control
                             type="text"
                             name="title"
@@ -119,7 +172,7 @@ export const SoftwareEditPage = () => {
                     </Form.Group>
 
                     <Form.Group controlId="formSummary" className="mb-3">
-                        <Form.Label>Краткое описание</Form.Label>
+                        <Form.Label>Краткое описание <sup className="text-danger">*</sup></Form.Label>
                         <Form.Control
                             as="textarea"
                             name="summary"
@@ -130,7 +183,7 @@ export const SoftwareEditPage = () => {
                     </Form.Group>
 
                     <Form.Group controlId="formPrice" className="mb-3">
-                        <Form.Label>Цена установки</Form.Label>
+                        <Form.Label>Цена установки <sup className="text-danger">*</sup></Form.Label>
                         <Form.Control
                             type="number"
                             name="price"
@@ -143,7 +196,7 @@ export const SoftwareEditPage = () => {
                     </Form.Group>
 
                     <Form.Group controlId="formInstallingTime" className="mb-3">
-                        <Form.Label>Время установки (в мин.)</Form.Label>
+                        <Form.Label>Время установки (в мин.) <sup className="text-danger">*</sup></Form.Label>
                         <Form.Control
                             type="number"
                             name="installing_time_in_mins"
@@ -156,7 +209,7 @@ export const SoftwareEditPage = () => {
                     </Form.Group>
 
                     <Form.Group controlId="formSize" className="mb-3">
-                        <Form.Label>Размер (в байтах)</Form.Label>
+                        <Form.Label>Размер (в байтах) <sup className="text-danger">*</sup></Form.Label>
                         <Form.Control
                             type="number"
                             name="size_in_bytes"
@@ -190,7 +243,7 @@ export const SoftwareEditPage = () => {
             <Row>
                 <Col>
                     <Form.Group controlId="formDescription" className="mb-3">
-                        <Form.Label>Полное описание</Form.Label>
+                        <Form.Label>Полное описание <sup className="text-danger">*</sup></Form.Label>
                         <Form.Control
                             as="textarea"
                             name="description"
@@ -201,12 +254,15 @@ export const SoftwareEditPage = () => {
                     </Form.Group>
                 </Col>
             </Row>
+            <div>
+                <sup className="text-danger">*</sup> — обязательные поля
+            </div>
             <Button
                 type="button"
                 className="mt-3 mb-3 dark-blue-btn"
                 onClick={handleSubmit}
             >
-                Сохранить изменения
+                {isEdit ? "Сохранить изменения" : "Добавить ПО"}
             </Button>
         </div>
     );

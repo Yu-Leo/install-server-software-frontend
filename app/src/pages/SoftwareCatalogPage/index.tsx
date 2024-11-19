@@ -116,7 +116,7 @@ export const SoftwareCatalogPage = () => {
                 isManager ?
                     <div className="d-flex justify-content-end">
                         <Link
-                            to={"/edit_software/"}
+                            to={"/add_software/"}
                             className="btn dark-blue-btn"
                         >
                             Добавить ПО
