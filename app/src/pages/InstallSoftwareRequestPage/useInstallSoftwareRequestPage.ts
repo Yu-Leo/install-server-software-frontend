@@ -3,7 +3,6 @@ import {useState, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {api} from "../../core/api";
 import {FullInstallSoftwareRequest, Related} from "../../core/api/Api.ts";
-import {installSoftwareRequest as INSTALL_SOFTWARE_REQUEST_MOCK} from "../../core/mock/installSoftwareRequest.ts";
 import {ChangeEvent} from "../../App.typing.tsx";
 import {store} from "../../core/store";
 import {addNotification} from "../../core/store/slices/appSlice.ts";
@@ -47,9 +46,21 @@ export const useInstallSoftwareRequestPage = () => {
                         updVersion(software.software.pk || 0, software.version)
                     })
                 })
-                .catch(() => {
-                    setISRContentData(INSTALL_SOFTWARE_REQUEST_MOCK)
-                });
+                .catch((data) => {
+                        if (data.status == 403) {
+                          navigate("/forbidden")
+                        } else if (data.status == 404) {
+                          navigate("/404")
+                        } else {
+                            store.dispatch(
+                                addNotification({
+                                    message: "Ошибка сервера",
+                                    isError: true,
+                                })
+                            );
+                        }
+                    }
+                )
         }
     }
 

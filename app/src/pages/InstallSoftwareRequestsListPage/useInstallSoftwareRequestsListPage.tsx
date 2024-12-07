@@ -3,9 +3,6 @@ import {IISRFiltersProps} from "../../components/ISRFilters/typing.tsx";
 import {IISRTableProps, IISRTableRow} from "../../components/ISRTable/typing.tsx";
 import {api} from "../../core/api";
 import {InstallSoftwareRequest} from "../../core/api/Api.ts";
-import {
-    installSoftwareRequestsList as INSTALL_SOFTWARE_REQUESTS_LIST_MOCK
-} from "../../core/mock/installSoftwareRequestsList.ts";
 import {useDispatch, useSelector} from "../../core/store";
 import {selectApp} from "../../core/store/slices/selectors.ts";
 import {
@@ -14,6 +11,9 @@ import {
     saveFilterISRStartDate,
     saveFilterISRStatus
 } from "../../core/store/slices/appSlice.ts";
+import {useNavigate} from "react-router-dom";
+import {store} from "../../core/store";
+import {addNotification} from "../../core/store/slices/appSlice.ts";
 
 export const useInstallSoftwareRequestsListPage = () => {
     const [tableProps, setTableProps] = useState<IISRTableProps>({
@@ -40,6 +40,8 @@ export const useInstallSoftwareRequestsListPage = () => {
         dispatch(saveFilterISREndDate(event.target.value))
     };
 
+    const navigate = useNavigate();
+
     const handleFilterISRClick = () => {
         api.installSoftwareRequests.installSoftwareRequestsList(
             {
@@ -54,19 +56,19 @@ export const useInstallSoftwareRequestsListPage = () => {
                         updateListPageFunc: handleFilterISRClick,
                     })
             })
-            .catch(() => {
-                setTableProps(
-                    {
-                        rows: filterAndConvertData(
-                            filterMockData(INSTALL_SOFTWARE_REQUESTS_LIST_MOCK,
-                                mapStringToOptQueryParam(filterISRStatus),
-                                mapStringToOptQueryParam(filterISRStartDate),
-                                mapStringToOptQueryParam(filterISREndDate),
-                            ), filterISRAuthor),
-                        updateListPageFunc: handleFilterISRClick,
+            .catch((data) => {
+                    if (data.status == 403) {
+                      navigate("/forbidden")
+                    } else {
+                        store.dispatch(
+                            addNotification({
+                                message: "Ошибка сервера",
+                                isError: true,
+                            })
+                        );
                     }
-                );
-            })
+                }
+            )
     };
 
     useEffect(() => {

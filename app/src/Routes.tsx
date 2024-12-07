@@ -10,7 +10,6 @@ import {ForbiddenPage} from "./pages/ForbiddenPage";
 import {UserAccountPage} from "./pages/UserAccountPage";
 import {InstallSoftwareRequestsListPage} from "./pages/InstallSoftwareRequestsListPage";
 import {MainLayout} from "./components/MainLayout";
-import {PrivatePageFirewall} from "./components/PrivatePageFirewall";
 import {ManagerPageFirewall} from "./components/ManagerPageFirewall";
 import {SoftwareEditPage} from "./pages/SoftwareEditPage";
 import {SoftwareListPage} from "./pages/SoftwareListPage";
@@ -21,33 +20,28 @@ export const AppRoutes = () => {
             element: <MainLayout/>,
             children: [
                 {
-                    element: <PrivatePageFirewall/>,
+                    path: "/install_software_request/:id",
+                    element: <InstallSoftwareRequestPage/>,
+                },
+                {
+                    path: "/install_software_requests_list",
+                    element: <InstallSoftwareRequestsListPage/>,
+                },
+                {
+                    element: <ManagerPageFirewall/>,
                     children: [
                         {
-                            path: "/install_software_request/:id",
-                            element: <InstallSoftwareRequestPage/>,
+                            path: "/edit_software/:id",
+                            element: <SoftwareEditPage/>,
                         },
                         {
-                            path: "/install_software_requests_list",
-                            element: <InstallSoftwareRequestsListPage/>,
+                            path: "/add_software",
+                            element: <SoftwareEditPage/>,
                         },
                         {
-                            element: <ManagerPageFirewall/>,
-                            children: [
-                                {
-                                    path: "/edit_software/:id",
-                                    element: <SoftwareEditPage/>,
-                                },
-                                {
-                                    path: "/add_software",
-                                    element: <SoftwareEditPage/>,
-                                },
-                                {
-                                    path: "/software_list",
-                                    element: <SoftwareListPage/>,
-                                },
-                            ],
-                        }
+                            path: "/software_list",
+                            element: <SoftwareListPage/>,
+                        },
                     ],
                 },
                 {
