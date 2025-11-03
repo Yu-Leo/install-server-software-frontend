@@ -1,0 +1,174 @@
+import React, {useEffect, useState} from "react";
+import {IISRFiltersProps} from "../../components/ISRFilters/typing.tsx";
+import {IISRTableProps, IISRTableRow} from "../../components/ISRTable/typing.tsx";
+import {api} from "../../core/api";
+import {InstallSoftwareRequest} from "../../core/api/Api.ts";
+import {useDispatch, useSelector} from "../../core/store";
+import {selectApp} from "../../core/store/slices/selectors.ts";
+import {
+    saveFilterISRAuthor,
+    saveFilterISREndDate,
+    saveFilterISRStartDate,
+    saveFilterISRStatus
+} from "../../core/store/slices/appSlice.ts";
+import {useNavigate} from "react-router-dom";
+import {store} from "../../core/store";
+import {addNotification} from "../../core/store/slices/appSlice.ts";
+
+export const useInstallSoftwareRequestsListPage = () => {
+    const [tableProps, setTableProps] = useState<IISRTableProps>({
+        rows: [], updateListPageFunc: () => {
+        }
+    });
+
+    const {filterISRAuthor, filterISRStatus, filterISRStartDate, filterISREndDate} = useSelector(selectApp);
+    const dispatch = useDispatch();
+
+    const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        dispatch(saveFilterISRStatus(event.target.value))
+    };
+
+    const handleAuthorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(saveFilterISRAuthor(event.target.value))
+    };
+
+    const handleStartDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(saveFilterISRStartDate(event.target.value))
+    };
+
+    const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(saveFilterISREndDate(event.target.value))
+    };
+
+    const navigate = useNavigate();
+
+    const handleFilterISRClick = () => {
+        api.installSoftwareRequests.installSoftwareRequestsList(
+            {
+                status: mapStringToOptQueryParam(filterISRStatus),
+                formation_start: mapStringToOptQueryParam(filterISRStartDate),
+                formation_end: mapStringToOptQueryParam(filterISREndDate),
+            })
+            .then((data) => {
+                setTableProps(
+                    {
+                        rows: filterAndConvertData(data.data, filterISRAuthor),
+                        updateListPageFunc: handleFilterISRClick,
+                    })
+            })
+            .catch((data) => {
+                    if (data.status == 403) {
+                      navigate("/forbidden")
+                    } else {
+                        store.dispatch(
+                            addNotification({
+                                message: "Ошибка сервера",
+                                isError: true,
+                            })
+                        );
+                    }
+                }
+            )
+    };
+
+    useEffect(() => {
+        let id = setTimeout(handleFilterISRClick, 2000);
+        return () => clearTimeout(id);
+    });
+
+    useEffect(handleFilterISRClick,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        []);
+
+    const filtersProps: IISRFiltersProps = {
+        selectedStatus: filterISRStatus,
+        selectedStartDate: filterISRStartDate,
+        selectedEndDate: filterISREndDate,
+        selectedAuthor: filterISRAuthor,
+        handleAuthorChange: handleAuthorChange,
+        handleStatusChange: handleStatusChange,
+        handleStartDateChange: handleStartDateChange,
+        handleEndDateChange: handleEndDateChange,
+        handleFilterISRClick: handleFilterISRClick,
+    };
+
+    const b: boolean = false;
+
+    return {tableProps, filtersProps, b};
+};
+
+function mapStringToOptQueryParam(str?: string): string | undefined {
+    if (str == "") {
+        return undefined;
+    }
+    return str;
+}
+
+function mapStatusToTable(status?: string): string {
+    switch (status) {
+        case "FORMED":
+            return "В работе";
+        case "COMPLETED":
+            return "Завершена";
+        case "REJECTED":
+            return "Отклонена";
+        default:
+            return "Неизвестный";
+    }
+}
+
+function convertDatetimeToDDMMYYYY(dateString: string | null | undefined): string {
+    if (!dateString) return "";
+
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${day}.${month}.${year}`;
+}
+
+export function filterAndConvertData(requests: InstallSoftwareRequest[], clientFilter: string | undefined): IISRTableRow[] {
+    const filteredRequests = clientFilter
+        ? requests.filter((request) => request.client === clientFilter)
+        : requests;
+
+    return filteredRequests.map((request) => {
+        return {
+            number: request.pk || 0,
+            client: request.client || "",
+            status: mapStatusToTable(request.status),
+            creationDate: convertDatetimeToDDMMYYYY(request.creation_datetime),
+            registrationDate: convertDatetimeToDDMMYYYY(request.formation_datetime),
+            completionDate: convertDatetimeToDDMMYYYY(request.completion_datetime),
+        };
+    });
+}
+
+export function filterMockData(
+    installSoftwareRequestsList: InstallSoftwareRequest[],
+    filterStatus?: string,
+    filterStartDate?: string,
+    filterEndDate?: string
+): InstallSoftwareRequest[] {
+    return installSoftwareRequestsList.filter((row) => {
+        let matchesStatus = true;
+        let matchesStartDate = true;
+        let matchesEndDate = true;
+
+        if (filterStatus) {
+            matchesStatus = row.status === filterStatus;
+        }
+
+        if (filterStartDate && row.formation_datetime) {
+            matchesStartDate = new Date(row.formation_datetime) >= new Date(filterStartDate);
+        }
+
+        if (filterEndDate && row.formation_datetime) {
+            matchesEndDate = new Date(row.formation_datetime) <= new Date(filterEndDate);
+        }
+
+        return matchesStatus && matchesStartDate && matchesEndDate;
+    })
+}

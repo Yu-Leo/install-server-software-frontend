@@ -1,0 +1,22 @@
+.non-clickable {
+    pointer-events: none;
+    text-decoration: none;
+    background-color: #efefef;
+    border-color: #444;
+    color: #444;
+}
+
+.cart-button {
+    min-width: 65px;
+}
+
+.white-bg {
+    background-color: #fff;
+}
+
+.btn:disabled,
+.btn[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+}
